@@ -22,12 +22,14 @@ In addition, there are many other search or optimization methods which could be 
 ## Relevant Experience
 
 #### Jeremiah Greer
+*see <a href="https://github.com/DeepwaterDiscord/about-us/blob/master/jeremiah-greer-bio.md">Jeremiah's Bio</a>*
 - Developed Data Analysis tool for World Bank in first co-op
 - Currently taking Intelligent Data Analysis
 - Currently taking Machine learning (Ng) & Neural Network (Hinton) courses on Coursera
 - Attended Deep Learning Seminar with Dr. Annexstein
 
 #### Frazier Baker
+*see <a href="https://github.com/DeepwaterDiscord/about-us/blob/master/frazierbaker.md">Frazier's Bio</a>*
 - Experience in Bioinformatics applications of Data Analysis and Machine Learning
   - Multiple journal publications and conference proceedings.
 - Experience in Computational Physics Research with Dr. Gabriela Popa at Ohio University Zanesville.
