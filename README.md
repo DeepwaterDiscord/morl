@@ -48,3 +48,7 @@ In addition, we will explore other areas of AI, particularly Genetic Programming
 Next, we hope to test both of these using the publicly available <a href="https://gym.openai.com/envs#mujoco">OpenAI Gym MuJoCo environments</a>.
 
 Finally, we hope to explore applications to other datasets that would demonstrate real-world benefits, as time permits.
+
+## Task List
+
+<a href="https://docs.google.com/spreadsheets/d/14fZkXLSIW7QbXBCmKItWm4GUioHfr6dxZ7jSs09N2Sw/edit?usp=sharing">Link</a>
