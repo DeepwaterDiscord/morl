@@ -23,6 +23,22 @@ Reinforcement Learning involves learning a task through feedback based on its pe
 
 ## Description <a name="Description"></a>
 
+#### Problem Statement
+
+We seek to find a novel multi-objective optimization method for use in reinforcement learning.
+
+#### Current Solutions
+
+Current methods for multi-objective optimization involve linear combinations of the reward terms; however, balancing each of the rewards has proven difficult.
+OpenAI.com has suggested that Filter Methods may be useful for multi-objective optimization and have been studied very little in relation to Reinforcement Learning.
+In addition, there are many other search or optimization methods which could be derived from other subfields of Artificial Intelligence that have yet to be explored.
+
+#### Our Approach
+
+Our plan is to explore the use of filter methods for multi-objective optimization and reinforcement learning.
+In addition, we will explore other areas of AI, particularly Genetic Programming, to find new methods of feature selection.
+Next, we hope to test both of these using the publicly available <a href="https://gym.openai.com/envs#mujoco">OpenAI Gym MuJoCo environments</a>.
+Finally, we hope to explore applications to other datasets that would demonstrate real-world benefits, as time permits.
 
 
 ## User Stories <a name="UserStories"></a>
