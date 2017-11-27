@@ -57,6 +57,12 @@ So that I can **extract more information from my data.**
 
 ## Design Diagrams <a name="DesignDiagrams"></a>
 
+![Design Diagram 1](https://github.com/DeepwaterDiscord/morl/blob/master/design_diagrams/MORL-UseCase-D0.png)
+
+![Design Diagram 2](https://github.com/DeepwaterDiscord/morl/blob/master/design_diagrams/MORL-D1.png)
+
+![Design Diagram 3](https://github.com/DeepwaterDiscord/morl/blob/master/design_diagrams/MORL-D2.png)
+
 ## Task List <a name="Tasks"></a>
 
 | Task Description                                                          | Estimated Time (days for one person) | Dependencies | Frazier's Effort | Jeremy's Effort | Optional? | 
