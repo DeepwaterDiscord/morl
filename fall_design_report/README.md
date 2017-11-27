@@ -110,6 +110,8 @@ So that I can **extract more information from my data.**
 
 ## Effort Matrix <a name="Effort"></a>
 
+![Effort Graph](https://github.com/DeepwaterDiscord/morl/blob/master/design_diagrams/morl_effort_graph.png)
+
 ## ABET Constraints Essays <a name="ABET"></a>
 
 ## Slideshow <a name="Slideshow"></a>
