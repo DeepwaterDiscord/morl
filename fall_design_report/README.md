@@ -88,6 +88,26 @@ So that I can **extract more information from my data.**
 
 ## Timeline <a name="Timeline"></a>
 
+| Task Id | Task Description                                                          | Start Date | End Date | 
+|---------|---------------------------------------------------------------------------|------------|----------| 
+| 1       | Research potential Filter Methods for use in reinforcement learning       | 12/1/17    | 12/5/17  | 
+| 2       | Find appropriate Python libraries for use with filter methods             | 12/5/17    | 12/6/17  | 
+| 3       | Research best practices for reinforcement learning in Tensor Flow         | 12/6/17    | 12/10/17 | 
+| 4       | Experiment with tensorflow, RL, and OpenAI Gym in Python                  | 12/10/17   | 12/17/17 | 
+| 5       | Research best practices for using Genetic Algorithms in feature selection | 12/17/17   | 12/18/17 | 
+| 6       | Locate fast GA Python libraries for use in feature selection              | 12/18/17   | 12/19/17 | 
+| 7       | Develop feature selection algorithm using filter methods                  | 1/2/18     | 1/9/18   | 
+| 8       | Design efficient RL system in Tensorflow using current best-practices     | 1/9/18     | 1/16/18  | 
+| 9       | Combine filter methods and GA in feature selection                        | 1/16/18    | 1/23/18  | 
+| 10      | Integrate feature selection workflow into RL Tensorflow system            | 1/23/18    | 1/25/18  | 
+| 11      | Develop CLI Tool for Feature Selection                                    | 1/25/18    | 1/27/18  | 
+| 12      | Develop UI Tool for Feature Selection                                     | 1/27/18    | 2/3/18   | 
+| 13      | Test feature selection and RL implementation on OpenAI MuJoCo Gym         | 2/3/18     | 2/7/18   | 
+| 14      | Test feature selection and RL implementation on Bioinformatics Data       | 2/7/18     | 2/11/18  | 
+| 15      | Test feature selection and RL implementation on Crime Rate Data           | 2/11/18    | 2/15/18  | 
+| 16      | Design Visual Aids for Presentation                                       | 2/15/18    | 2/22/18  | 
+| 17      | Write Paper                                                               | 2/22/18    | 3/1/18   | 
+
 ## Effort Matrix <a name="Effort"></a>
 
 ## ABET Constraints Essays <a name="ABET"></a>
