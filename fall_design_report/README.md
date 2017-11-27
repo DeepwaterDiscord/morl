@@ -14,7 +14,6 @@
 10. [Self-Assessment Essays](#SelfAssessments)
 11. [Professional Biographies](#Biographies)
 12. [Budget](#Budget)
-13. [Bibliography](#Bibliography)
 14. [Appendix](#Appendix)
 
 ## Abstract <a name="Abstract"></a>
@@ -188,161 +187,6 @@ important step in our initial design.
 
 ## Self-Assessment Essays <a name="SelfAssessments"></a>
 
-**MORL**
-
-Frazier Baker
-
-Computer Science Senior Design
-
-Self-Assessment
-
-**Project Description**
-
-Multi-objective reinforcement learning is a subfield of deep learning, which is currently a
-booming field within Computer Science. Multi-objective reinforcement learning is the process
-of conditioning a computer program to make decisions based on more than one goal. The
-applications of multi-objective reinforcement learning vary widely and include intelligent
-robotics, bioinformatics, and data analysis. Our project focuses on improving feature
-selection for multi-objective reinforcement learning. For any machine learning algorithm,
-data cleaning and feature selection is essential to achieving good results. We plan to use
-filter methods and genetic algorithms to improve feature selection for multi-objective
-reinforcement learning.
-
-**Classroom Experience**
-
-My experience in the classroom throughout my undergraduate career has played a role in
-preparing me for this project. In Intelligent Data Analysis my sophomore year, I learned the
-basics of data analysis with focus on clustering, decision trees, support vector machines, and
-association rules. In addition, I learned about the importance of feature selection and
-knowing my data. I learned that techniques like PCA exist to analyze features give visual
-representations of multivariate data. I also participated in a Deep Learning Seminar last year
-as part of an independent study. There I was formally and thoroughly introduced to neural
-networks and the concept of deep neural networks.
-
-**Work Experience**
-
-My experience in the workplace has done a lot to prepare me for this project. In my work at
-Cincinnati Children’s Hospital Medical Center, I have applied various machine learning and
-data analysis techniques to real research problems in proteomics and bioinformatics. I also
-have experience with big data visualization and have been able to articulate my work at
-conferences and in peer-reviewed journal articles. I also have some experience as a Web
-Developer at Kinetic Vision. At Kinetic Vision, I learned a lot about best practices in software
-engineering and how to design and organize a project.
-
-**Motivation**
-
-I’ve been doing research-oriented projects since I was a senior in high school, so I was
-interested in a research-oriented senior design. For a long time I have been interested in
-artificial intelligence and machine learning. As I grew and developed in my career as a
-Computer Scientist, I saw pertinent applications in a variety of fields, such as bioinformatics
-and data analytics. I am especially driven towards machine learning applications in
-bioinformatics because of my childhood dream of tackling problems related to autism, a
-disorder with which my brother was diagnosed at a young age. When I was discussing project
-ideas with my partner and advisor, I was excited to pick up a manageable piece of the puzzle
-in furthering deep learning as a field. I see this project as broadening horizons not only for my
-own interests, but for all those who have interests like mine. I want to help the deep learning
-community make computers learn better so that we can solve bigger problems across many
-fields.
-
-**Preliminary Project Design**
-
-As I’ve been discussing with my partner, I think our preliminary goals will include a literature
-search for thorough understanding of the topics we will be exploring, namely multiobjective
-reinforcement learning, genetic algorithms, and filter methods. Progress towards these goals
-has already been made and we expect to start the next phase soon. In the implementation
-phase, we will need to compare our changes to some baseline, so implementing a current
-method of feature selection and reinforcement learning would be a good first step of
-implementation. Our next step would be to attempt to use filter methods for feature
-selection, as suggested in the OpenAI request for research
-(https://openai.com/requests-for-research/#multiobjective-rl). Simultaneously, we can be
-developing genetic algorithms for the same purpose of feature selection, and explore to what
-extent these can be used to improve multiobjective reinforcement learning. Towards the end
-of this project, we need to exhaustively evaluate these across multiple datasets and show
-their practical applications. Finally, I think we should aim to have some user-friendly
-graphical tool to perform feature selection using our algorithm or a selection of algorithms
-given a user-provided dataset.
-
-<br>
-
-**MORL: Initial Assessment**
-
-Jeremiah Greer
-
-**Introduction**
-
-Reinforcement Learning is one of the primary areas currently being explored in
-research related to Machine Learning, Neural Networks, and Deep Learning. Often this
-type of learning involves "learning" multiple tasks in order to reach the desired
-functionality, and these multiple tasks are generally defined as trying to optimize
-multiple objective functions at once. Modern methods for optimizing these
-multi-objective functions usually involve taking a linear combination of the reward terms,
-basically combining the functions into one via a linear combination. One area that so far
-has not been tested in these methods are Filter Methods, which are a method of
-optimizing multi-objective functions. We seek to design and test a filter method which
-can adequately train a network in Reinforcement Learning. By drawing upon our
-previous experience with Data Analytics and Machine Learning, we hope to extend our
-own understanding of these areas and contribute to them.
-
-**Experiences**
-
-The experiences I've gained in my curriculum will help to contribute to this project
-in many ways. CS 5152, Intelligent Data Analysis, has given me a wide breadth of
-knowledge and tools with which I may be able to analyze data, as well as an
-introduction into neural networks and machine learning as a whole. This knowledge will
-directly benefit me in my dive into Reinforcement Learning and Multi-Objective
-Optimization. In addition, CS 7001, an independent study which turned into a Deep
-Learning seminar, helped to work as a deep-dive into the areas of neural networks,
-allowing me to analyze modern open-source literature on these areas using the Deep
-Learning Book. This spurred off my own personal study on Coursera of Machine
-Learning and Neural Networks with Andrew Ng and Geoffrey Hinton, respectively. The
-knowledge I've gained from these experiences will prove to be invaluable in
-understanding future material and work.
-
-My co-op experiences will also help to contribute to this learning. In particular, my
-time at the University of Cincinnati as a Student Researcher under Dr. Rozier
-contributes immensely to my current ability as a researcher and as a Data Scientist. In
-this co-op, I worked extensively in Python, gaining an intuitive grasp on what it's like to
-perform data analytics in the language. In addition, it improved my ability to self-educate
-and perform research, two areas which will prove to be critical in this project, as a large
-part of it is education and research to understand exactly what we need to do. I had
-another co-op at Kinetic Vision as a Software Developer, and in this co-op I primarily
-developed VR applications using Unity and C#, while also gaining some design skills to
-help improve the visual fidelity of my work. This co-op, while not specifically related to
-Machine Learning, did give me the skills necessary to bring my work up to an
-acceptable level to present to others as well as manage various projects. These two
-skills will assist me in my effort to get our project to a presentable state, as well as
-improving how we work on the project going forward, both as individuals and as a
-group. I don't seek to maintain leadership in the project, but I will be happy to help work
-to keep everything organized.
-
-**Motivation and Methodology**
-
-I look forward to this project primarily because I'm excited to get a chance at
-becoming familiar with modern Deep Learning concepts, tools, and datasets. I have a
-strong interest in machine learning and I believe that it will continue to be a fruitful area
-of the future. I'm also excited because this project particularly entails multi-objective
-learning, something which encompasses a lot of areas, including teaching robots to
-walk like humans. Replicating organic life behavior through simulations and robotics is
-immensely interesting to me, and I feel that this will help me to develop a reasonable
-understanding of this area as a result. In order to develop this understanding, I must first
-become fairly acquainted with these areas for the project. Doing so will help to prepare
-me for the actual project and enable me to structure it in such a way that is
-understandable to others and hopefully successful.
-
-In researching the aforementioned areas, we hope to better understand the
-current state of research in these topics. We plan to accomplish this by discovering
-baseline tutorials for these concepts to gain a familiarity with the vocabulary and
-concepts, then read the current literature on these areas to get an idea of what the most
-current practices are. After getting ourselves up to speed, we will start working with the
-tools we'll need to use to gain familiarity with them, then begin discussing and testing
-some possible designs for Filter Methods to use and how to best implement them. This
-will finally result in the visualization of the training of the dataset and a formalization of
-our process and results presented in a poster and potentially a publication. The project
-will be completed once we've achieved a consistent, stable result with which we can use
-as a solid test result. We will evaluate our results by comparing them with current
-modern methods utilizing different means of multi-objective optimization on the same
-dataset.
-
 ## Professional Biographies <a name="Biographies"></a>
 
 ### Professional Biography for Frazier Baker
@@ -434,6 +278,19 @@ Uploaded November 27, 2017. For a more up-to-date biography, click here: https:/
 
 There have been no expenses to date and we do not expect any.
 
-## Bibliography <a name="Bibliography"></a>
-
 ## Appendix <a name="Appendix"></a>
+
+### References
+* [OpenAI Requests for Research](https://openai.com/requests-for-research/)
+* [MuJoCo Gym](https://gym.openai.com/envs/#mujoco)
+* [Your Mapper CrimeScore](https://www.programmableweb.com/api/your-mapper-crimescore)
+* [TensorFlow](https://www.tensorflow.org)
+* [Pyvolution](https://pypi.python.org/pypi/Pyvolution/1.1)
+* [Deap](https://github.com/DEAP/deap)
+* [SciKitLearn](http://scikit-learn.org/stable/)
+* [Numpy](http://www.numpy.org)
+* [Python](https://www.python.org)
+
+### Timetables
+#### Jeremiah Greer
+#### Frazier Baker
