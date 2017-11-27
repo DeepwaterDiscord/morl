@@ -59,6 +59,27 @@ So that I can **extract more information from my data.**
 
 ## Task List <a name="Tasks"></a>
 
+| Task Description                                                          | Estimated Time (days for one person) | Dependencies | Frazier's Effort | Jeremy's Effort | Optional? | 
+|---------------------------------------------------------------------------|--------------------------------------|--------------|------------------|-----------------|-----------| 
+| Research potential Filter Methods for use in reinforcement learning       | 7                                    |              | 40%              | 60%             | No        | 
+| Find appropriate Python libraries for use with filter methods             | 1                                    | 1            | 50%              | 50%             | No        | 
+| Research best practices for reinforcement learning in Tensor Flow         | 7                                    |              | 60%              | 40%             | No        | 
+| Experiment with tensorflow, RL, and OpenAI Gym in Python                  | 14                                   | 3            | 50%              | 50%             | No        | 
+| Research best practices for using Genetic Algorithms in feature selection | 1                                    |              | 50%              | 50%             | No        | 
+| Locate fast GA Python libraries for use in feature selection              | 1                                    | 5            | 50%              | 50%             | No        | 
+| Develop feature selection algorithm using filter methods                  | 14                                   | 1, 2         | 50%              | 50%             | No        | 
+| Design efficient RL system in Tensorflow using current best-practices     | 14                                   | 1, 2, 3, 4   | 50%              | 50%             | No        | 
+| Combine filter methods and GA in feature selection                        | 14                                   | 7, 6         | 50%              | 50%             | Yes       | 
+| Integrate feature selection workflow into RL Tensorflow system            | 4                                    | 7, 9         | 50%              | 50%             | No        | 
+| Develop CLI Tool for Feature Selection                                    | 4                                    | 10           | 50%              | 50%             | No        | 
+| Develop UI Tool for Feature Selection                                     | 14                                   | 10           | 50%              | 50%             | Yes       | 
+| Test feature selection and RL implementation on OpenAI MuJoCo Gym         | 7                                    | 11           | 50%              | 50%             | No        | 
+| Test feature selection and RL implementation on Bioinformatics Data       | 7                                    | 13           | 100%             | 0%              | Yes       | 
+| Test feature selection and RL implementation on Crime Rate Data           | 7                                    | 14           | 0%               | 100%            | Yes       | 
+| Design Visual Aids for Presentation                                       | 14                                   | 13, 14?, 15? | 50%              | 50%             | No        | 
+| Write Paper                                                               | 14                                   | 16           | 50%              | 50%             | Yes       | 
+
+
 ## Timeline <a name="Timeline"></a>
 
 ## Effort Matrix <a name="Effort"></a>
