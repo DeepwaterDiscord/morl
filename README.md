@@ -22,7 +22,7 @@ In addition, there are many other search or optimization methods which could be 
 ## Relevant Experience
 
 #### Jeremiah Greer
-*see <a href="https://github.com/DeepwaterDiscord/about-us/blob/master/jeremiah-greer-bio.md">Jeremiah's Bio</a>*
+*see <a href="https://github.com/DeepwaterDiscord/about-us/blob/master/jeremiahgreer.md">Jeremiah's Bio</a>*
 - Developed Data Analysis tool for World Bank in first co-op
 - Currently taking Intelligent Data Analysis
 - Currently taking Machine learning (Ng) & Neural Network (Hinton) courses on Coursera
