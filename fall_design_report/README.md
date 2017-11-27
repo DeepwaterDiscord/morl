@@ -184,7 +184,7 @@ important step in our initial design.
 
 ## Slideshow <a name="Slideshow"></a>
 
-[![MORL Presentation](https://img.youtube.com/vi/0MXuCKj4gsQ/0.jpg)](https://youtu.be/0MXuCKj4gsQ)
+[![MORL Presentation](https://img.youtube.com/vi/0MXuCKj4gsQ/0.jpg?)](https://youtu.be/0MXuCKj4gsQ)
 
 ## Self-Assessment Essays <a name="SelfAssessments"></a>
 
