@@ -19,7 +19,11 @@
 
 ## Abstract <a name="Abstract"></a>
 
+Reinforcement Learning involves learning a task through feedback based on its performance and can be expanded to include multiple measures of performance, requiring Multi-Objective Optimization. We seek to find a novel multi-objective optimization method for use in reinforcement learning. Current methods involve linear combinations of reward terms, but balancing their weights has been difficult. Instead, we plan to use Filter Methods as an alternative method of multi-objective optimization. We will test our filter method on OpenAI's MuJoCo Gym and compare our results to those using linear combination for multi-objective optimization. We will also examine alternative methods of feature selection, such as genetic algorithms. Finally, we hope to show generality and demonstrate real-world benefits by applying our work to other datasets.
+
 ## Description <a name="Description"></a>
+
+
 
 ## User Stories <a name="UserStories"></a>
 
