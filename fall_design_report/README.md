@@ -275,6 +275,8 @@ Uploaded November 27, 2017. For a more up-to-date biography, click here: https:/
 
 ## Budget <a name="Budget"></a>
 
+There have been no expenses to date and we do not expect any.
+
 ## Bibliography <a name="Bibliography"></a>
 
 ## Appendix <a name="Appendix"></a>
