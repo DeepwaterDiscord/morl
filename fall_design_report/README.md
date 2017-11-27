@@ -58,9 +58,15 @@ So that I can **extract more information from my data.**
 
 ![Design Diagram 1](https://github.com/DeepwaterDiscord/morl/blob/master/design_diagrams/MORL-UseCase-D0.png)
 
+Above shows a high-level use case model where the user (in this case a Researcher/Engineer) requests learning for some Data object, and this Data is fed through the MORL system, which uses feature selection and uses reinforcement learning on said features to get a result.
+
 ![Design Diagram 2](https://github.com/DeepwaterDiscord/morl/blob/master/design_diagrams/MORL-D1.png)
 
+Above shows a detailed view of the MORL system which separates out Feature Selection and Reinforcement Learning into their separate components. 
+
 ![Design Diagram 3](https://github.com/DeepwaterDiscord/morl/blob/master/design_diagrams/MORL-D2.png)
+
+Above shows an in-depth detailed view of the MORL system which highlights some specific implementation-based details for our system
 
 ## Task List <a name="Tasks"></a>
 
