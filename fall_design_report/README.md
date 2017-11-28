@@ -299,4 +299,23 @@ There have been no expenses to date and we do not expect any.
 
 ### Timetables
 #### Jeremiah Greer
+
+| Description                                                                 | Date     | Hours |
+|-----------------------------------------------------------------------------|----------|-------|
+| Wrote Professional Biography (Assignment 1)                                 | 8/29/17  | 3     |
+| Discussed project ideas with group members                                  | 9/01/17  | 3     |
+| Created project description (Assignment 2)                                  | 9/10/17  | 3     |
+| Discussed details of project with group members                             | 9/17/17  | 3     |
+| Found relevant libraries and papers for project                             | 9/20/17  | 3     |
+| Wrote self-assessment essay (Assignment 3)                                  | 9/24/17  | 3     |
+| Created user stories and design diagrams  with group members (Assignment 4) | 10/01/17 | 3     |
+| Started discussing project outline and tasks                                | 10/09/17 | 3     |
+| Finalized task list with group (Assignment 5)                               | 10/15/17 | 3     |
+| Finished milestones, timeline, and effort matrix  with group(Assignment 6)  | 10/22/17 | 3     |
+| Wrote ABET Constraint Essay with  group (Assignment 7)                      | 10/29/17 | 3     |
+| Designed and recorded slideshow  presentation with group (Assignment 8)     | 11/5/17  | 3     |
+| Investigated current reinforcement learning techniques                      | 11/12/17 | 3     |
+| Began experimenting with tensorflow                                         | 11/19/17 | 3     |
+| Finished writing fall design report with  group (Assignment 9)              | 11/27/17 | 3     |
+
 #### Frazier Baker
