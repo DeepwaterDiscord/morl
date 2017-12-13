@@ -1,7 +1,7 @@
 #!/bin/bash
 # Provisions environment for MORL
 
-$PROJ_DIR="../../bin"
+PROJ_DIR="../../bin"
 
 rm -rf $PROJ_DIR 2>/dev/null
 mkdir $PROJ_DIR
