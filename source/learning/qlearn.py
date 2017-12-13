@@ -25,7 +25,7 @@ class QLearn:
         else:
             self.q[(state, action)] = oldv + self.alpha * (value - oldv)
 
-    def chooseAction(self, state, return_q=False):
+    def choose_action(self, state, return_q=False):
         q = [self.getQ(state, a) for a in self.actions[state]]
         maxQ = max(q)
 
@@ -52,3 +52,33 @@ class QLearn:
     def learn(self, state1, action1, reward, state2):
         maxqnew = max([self.getQ(state2, a) for a in self.actions[state2]])
         self.learnQ(state1, action1, reward, reward + self.gamma*maxqnew)
+    
+    def train(self, start_state, environment, reward_functions, max_iter=None, state_function=lambda results: results[0], done_function=lambda results: results[2]):
+        use_max_iter = max_iter is not None
+        iterations = 0
+        new_state = start_state
+        done = False
+        while not done and (not use_max_iter or iterations < max_iter):
+            new_state, done = self.train_step(new_state, environment, reward_functions, state_function, done_function)
+
+    def train_step(self, state, environment, reward_functions, state_function=lambda results: results[0], done_function=lambda results: results[2]):
+        # Choose the action
+        action = self.choose_action(state, False)
+
+        # Take the action
+        results = environment.step(action)
+
+        # Process results
+        rewards = [f(results) for f in reward_functions]
+
+        # Get state2
+        state2 = state_function(results)
+
+        # Call learn
+        self.learn(state, action, rewards, state2)
+
+        # Evaluate doneness
+        done = done_function(results)
+
+        # Return new state
+        return state2, done
