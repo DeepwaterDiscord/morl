@@ -25,8 +25,8 @@ def qlearn(states, all_actions, actions, prob_actions, destinations, discount, r
     # max_iter - maximum number of iterations to run q-learning (in case it doesn't converge)
     # debug - Bool for showing debug statements
     # initialize to 0:
-    utility = {(s, a): 0 for s in states for a in all_actions}
-    prev_utility = {(s, a): 0 for s in states for a in all_actions}
+    utility = {(s, a): 0 for s in states for a in actions[s]}
+    prev_utility = {(s, a): 0 for s in states for a in actions[s]}
     print "Utility Start: "+str(utility)
     num_its = 0
     while True:
@@ -70,7 +70,7 @@ a = {'1':['a','b'], '2':['c','d'], '3':['e','f']}
 pa = {('1','a'): {'a': 1, 'b': 0},('1','b'): {'a': 0, 'b': 1},('2','c'): {'c': 1, 'd': 0},('2','d'): {'c': 0, 'd': 1},('3','e'): {'e': 1, 'f': 0}, ('3','f'): {'e': 0, 'f': 1}}
 dest = {('1','a'): '2',('1','b'): '3',('2','c'): '1',('2','d'): '3',('3','e'): '1', ('3','f'): '3'}
 df = 0.9
-r = {'1': -1,'2': 0,'3': 5}
+r = {'1': -5,'2': 0,'3': 5}
 stop = 0.1
 
 u = qlearn(s, aa, a, pa, dest, df, r, stop, debug=True)
