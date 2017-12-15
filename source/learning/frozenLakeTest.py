@@ -1,5 +1,5 @@
 import gym
-from qlearn_sars_local import QLearn
+from qlearn import QLearn
 import re
 import matplotlib.pyplot as plt
 import math
@@ -14,68 +14,50 @@ eps = 1.0
 gam = 0.95
 space = env.action_space
 acts = range(space.n)
+acts_dict = {}
+for s in range(env.observation_space.n):
+  acts_dict[s] = acts
+  
 num_epochs = 2000
 num_tests = 99
-epoch_only_rewards = []
 
-reward_per_epoch = []
+for trial in range(1, 10):
+    epoch_only_rewards = []
 
-prev_reward = 0
+    reward_per_epoch = []
 
-q = QLearn(acts, epsilon=eps, alpha=0.8, gamma=gam)
-for epoch in range(num_epochs):
-    
-    epoch_reward = 0
-    
-    prev_observation = env.reset()
-    
-    this_reward = 0
-    #env.render()
-    
-    q.epsilon = max(1 / (epoch + 1), 0.001)
-    #q.alpha = 1 / (epoch + 1)
-    # Learning 
-    for t in range(99):
-    
-        action = q.chooseAction(prev_observation)
+    prev_reward = 0
+
+    alph = trial / 10.0
+    print alph
+    q = QLearn(acts_dict, epsilon=eps, alpha=alph, gamma=gam, reward_function=lambda x: x[1])
+    for epoch in range(num_epochs):
         
-        observation, reward, done, info = env.step(action)
-        
-        #epoch_reward += reward
-        
-        sars = (prev_observation, action, reward, observation)
-        
-        this_reward += reward
-        
-        q.learn(prev_observation, action, reward, observation)
-        #print sars #SARS aka Q-Learning
-        #print("action: ", action)
-        #print("observation: ", observation)
-        #print("reward: ", reward)
-        #print("done: ", done)
-        #print("info: ", info)
-        
-        prev_observation = observation
-        
-        if done:
-            #print("Episode finished after {} timesteps".format(t+1))
-            break
-            
-    epoch_only_rewards.append(this_reward)
-            
-    
-    # Testing
-    q.epsilon = 0.00
-    for i in range(num_tests):
+        epoch_reward = 0
         prev_observation = env.reset()
-        for t in range(100):
-            action = q.chooseAction(prev_observation)
+        this_reward = 0
+        #env.render()
+        #q.epsilon = max(1 / (epoch + 1), 0.001)
+        # temperature for boltzmann
+        q.epsilon = max(1 / (epoch + 1), 0.01)
+        #q.alpha = 1 / (epoch + 1)
+        # Learning 
+        q.train(start_state=prev_observation, environment=env, max_iter=99)
+        
+        """
+        for t in range(99):
+        
+            action = q.choose_action(prev_observation)
             
             observation, reward, done, info = env.step(action)
             
-            epoch_reward += reward
+            #epoch_reward += reward
             
             sars = (prev_observation, action, reward, observation)
+            
+            this_reward += reward
+            
+            q.learn(prev_observation, action, reward, observation)
             #print sars #SARS aka Q-Learning
             #print("action: ", action)
             #print("observation: ", observation)
@@ -88,21 +70,51 @@ for epoch in range(num_epochs):
             if done:
                 #print("Episode finished after {} timesteps".format(t+1))
                 break
+        
+        epoch_only_rewards.append(this_reward)
+        """        
+        
+        # Testing
+        q.epsilon = 0.00 # temperature for boltzmann
+        #q.epsilon = 0.00 # epsilon for other methods
+        for i in range(num_tests):
+            prev_observation = env.reset()
+            for t in range(100):
+                action = q.choose_action(prev_observation)
                 
+                observation, reward, done, info = env.step(action)
                 
-    print("Epoch {} finished, total reward: {}".format(epoch+1, epoch_reward))
-    
-    reward_per_epoch.append(epoch_reward/num_tests)    
-    
-    #print q.q  
-    
-       
+                epoch_reward += reward
+                
+                sars = (prev_observation, action, reward, observation)
+                
+                prev_observation = observation
+                
+                if done:
+                    #print("Episode finished after {} timesteps".format(t+1))
+                    break
+                    
+          
+        if (epoch % 10 == 0):          
+            print("Epoch {} finished, total reward: {}".format(epoch+1, epoch_reward))
+        
+        reward_per_epoch.append(epoch_reward/num_tests)    
+        
+        #print q.q  
+        
+           
 
-plt.plot(range(num_epochs), reward_per_epoch)
-plt.show()
+    plt.plot(range(num_epochs), reward_per_epoch)
+    #plt.show()
+    plt.savefig("plot_learning_rate_{0:.1f}.png".format(alph))
+    plt.cla()
+    plt.clf()
+    plt.close()
 
-print sum(reward_per_epoch) / num_epochs
-print sum(epoch_only_rewards) / num_epochs
+    print sum(reward_per_epoch) / num_epochs
+    print sum(epoch_only_rewards) / num_epochs
+    
+    break
         
 s = range(16)
 aa = range(4)
