@@ -3,7 +3,7 @@
 
 import random
 
-class QLearn:
+class QLearn(object):
     def __init__(self, actions, epsilon, alpha, gamma, reward_function):
         self.q = {}
         self.epsilon = epsilon  # exploration constant
@@ -26,29 +26,35 @@ class QLearn:
         else:
             self.q[(state, action)] = oldv + self.alpha * (value - oldv)
 
-    def choose_action(self, state, return_q=False):
+    def choose_action_egreedy(self, state):
+        if random.random() < self.epsilon:
+            # altered to remove magic numbers and change back to a truly random choice
+            return random.choice(self.actions[state])
+        else:
+            return None
+
+    def choose_action(self, state, return_q=False, rand_method=choose_action_egreedy):
         q = [self.getQ(state, a) for a in self.actions[state]]
         maxQ = max(q)
 
-        if random.random() < self.epsilon:
-            # altered to remove magic numbers and change back to a truly random choice
-            if return_q:
-                return random.choice(self.actions[state]), q
-            return random.choice(self.actions[state])
+        # altered to allow for various exploration strategies
+        action = rand_method(state, return_q)
+        if action is None:
+            count = q.count(maxQ)
+            # In case there're several state-action max values 
+            # we select a random one among them
+            if count > 1:
+                best = [i for i in range(len(self.actions[state])) if q[i] == maxQ]
+                i = random.choice(best)
+            else:
+                i = q.index(maxQ)
 
-        count = q.count(maxQ)
-        # In case there're several state-action max values 
-        # we select a random one among them
-        if count > 1:
-            best = [i for i in range(len(self.actions[state])) if q[i] == maxQ]
-            i = random.choice(best)
-        else:
-            i = q.index(maxQ)
-
-        action = self.actions[state][i]        
+            action = self.actions[state][i]
+        
         if return_q: # if they want it, give it!
             return action, q
         return action
+        
 
     def learn(self, state1, action1, results, state2):
         maxqnew = max([self.getQ(state2, a) for a in self.actions[state2]])
@@ -63,9 +69,9 @@ class QLearn:
         while not done and (not use_max_iter or iterations < max_iter):
             new_state, done = self.train_step(new_state, environment, state_function, done_function)
 
-    def train_step(self, state, environment, state_function=lambda results: results[0], done_function=lambda results: results[2]):
+    def train_step(self, state, environment, rand_method=choose_action_egreedy, state_function=lambda results: results[0], done_function=lambda results: results[2]):
         # Choose the action
-        action = self.choose_action(state, False)
+        action = self.choose_action(state, False, rand_method)
 
         # Take the action
         results = environment.step(action)

@@ -6,12 +6,42 @@ from pyspark import SparkContext
 
 class MultiLearn(sequential.multilearn.MultiLearn):
     def __init__(self, actions, epsilon, alpha, gamma, reward_functions):
-        super(MultiLearn, self).
+        super(MultiLearn, self).__init__(actions, epsilon, alpha, gamma, reward_functions)
         self.sc = SparkContext(Config.SPARK_MASTER, Config.SPARK_APP_NAME)
-        self.QLearnersRDD = self.sc.parallelize([QLearn(actions, epsilon, alpha, gamma, reward_functions[n] for n in range(self.nrewards)])
+        self.QLearnersRDD = self.sc.parallelize([QLearn(actions, epsilon, alpha, gamma, reward_functions[n]) for n in range(self.nrewards)])
+
+    @property
+    def epsilon(self):
+        return self._epsilon
+
+    @epsilon.setter
+    def epsilon(self, value):
+        self._epsilon = value
+        self.QLearnersRDD = self.QLearnersRDD.map(lambda QL: QL.update(epsilon=value))
+        return self._epsilon
+
+    @property
+    def alpha(self):
+        return self._alpha
+
+    @alpha.setter
+    def alpha(self, value):
+        self._alpha = value
+        self.QLearnersRDD = self.QLearnersRDD.map(lambda QL: QL.update(alpha=value))
+        return self._alpha
+
+    @property
+    def gamma(self):
+        return self._gamma
+
+    @gamma.setter
+    def gamma(self, value):
+        self._gamma = value
+        self.QLearnersRDD = self.QLearnersRDD.map(lambda QL: QL.update(gamma=value))
+        return self._gamma
 
     def getQ(self, state):
-        return {a:[QL[0].getQ(state, a) for QL in self.QLearners] for a in self.actions[state]}
+        {a: self.QLearnersRDD.map(lambda QL: QL.getQ(state, a)) for a in self.actions[state]}
 
     def choose_actions(self, state, return_q=False):
         q = self.getQ(state)
@@ -82,4 +112,4 @@ class MultiLearn(sequential.multilearn.MultiLearn):
         return qfilter
 
     def learn(self, state1, action1, results, state2):
-        self.QLearnersRDD.learn(state1, action1, rewards[i], state2)
+        self.QLearnersRDD = self.QLearnersRDD.map(lambda QL: QL.learn(state1, action1, results, state2))
