@@ -1,5 +1,5 @@
 import gym
-from qlearn_sars import QLearn
+from qlearn_sars_local import QLearn
 import re
 import matplotlib.pyplot as plt
 import math
