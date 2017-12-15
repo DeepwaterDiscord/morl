@@ -1,80 +1,84 @@
-import numpy as np
+# Implementation from https://github.com/vmayoral/basic_reinforcement_learning
+# Modified to allow for state-specific actions
 
-def expected_utility(utility, actions, state, prob_actions, destinations, choice):
-    """ expected_utility returns the utility of the next state given the probability of actions """
-    # utility - Dictionary of Key: (state, action), Value: Real Number utility
-    # actions - Dictionary of Key: (state), Value: List of actions
-    # state - List of states
-    # prob_actions - Dictionary of Key: (state, action), Value: 0-1
-    # destinations - Dictionary of Key: (state, action), Value: destination_state
-    # choice - chosen action
-    # return prob_choice * util
-    return sum([utility[(destinations[(state, act)], act)] * prob_actions[(state, choice)][act] \
-                    for act in actions[state]])
+import random
 
-def qlearn(states, all_actions, actions, prob_actions, destinations, discount, rewards, stop, learning_rate = 0.9, max_iter = 10000, debug = False):
-    """ qlearn updates utilities until they change less than the amount specified by stop """
-    # states - List of states
-    # all_actions - List of actions
-    # actions - Dictionary of Key: (state), Value: List of actions
-    # prob_actions - Dictionary of Key: (state, action), Value: Dictionary of Key: (action), Value: 0-1
-    # destinations - Dictionary of Key: (state, action), Value: destination_state
-    # discount - discount factor 0-1
-    # rewards - Dictionary of Key: (state), Value: Real Number reward
-    # stop - stop epsilon for utility convergence
-    # max_iter - maximum number of iterations to run q-learning (in case it doesn't converge)
-    # debug - Bool for showing debug statements
-    # initialize to 0:
-    utility = {(s, a): 0 for s in states for a in actions[s]}
-    prev_utility = {(s, a): 0 for s in states for a in actions[s]}
-    print "Utility Start: "+str(utility)
-    num_its = 0
-    while True:
-        # initialize delta
-        num_its += 1
-        delta = 0
-        for state in states:
-            for act in actions[state]:
-                destination = destinations[(state,act)]
-                previous = prev_utility[(state, act)]
-                
-                
-                #current = rewards[destinations[state, act]] + float(discount) * \
-                #    max([expected_utility(utility, actions, state, prob_actions, destinations, choice) for choice in actions[state]])
-                
-                current = rewards[state] + float(discount) * \
-                    max([prev_utility[destination, dest_act] for dest_act in actions[destination]])
-                    
-                new = (1 - learning_rate) * previous + learning_rate * current
-                
-                utility[(state, act)] = new
-                  
-                delta = max(delta, np.abs(previous - new))
-                
-                if (debug):
-                  #print "Utility for (%s, %s) updated to %0.4f" % (state, act, utility[(state, act)])
-                  print("Delta: ", delta)
-                  xdsf = 0
-                  
-        prev_utility = utility
-                  
-        #print utility     
-        if delta < stop:
-            return utility
-            
-            
-        
-s = ['1','2','3']
-aa = ['a','b','c','d','e','f']
-a = {'1':['a','b'], '2':['c','d'], '3':['e','f']}
-pa = {('1','a'): {'a': 1, 'b': 0},('1','b'): {'a': 0, 'b': 1},('2','c'): {'c': 1, 'd': 0},('2','d'): {'c': 0, 'd': 1},('3','e'): {'e': 1, 'f': 0}, ('3','f'): {'e': 0, 'f': 1}}
-dest = {('1','a'): '2',('1','b'): '3',('2','c'): '1',('2','d'): '3',('3','e'): '1', ('3','f'): '3'}
-df = 0.9
-r = {'1': -5,'2': 0,'3': 5}
-stop = 0.1
+class QLearn:
+    def __init__(self, actions, epsilon, alpha, gamma):
+        self.q = {}
+        self.epsilon = epsilon  # exploration constant
+        self.alpha = alpha      # discount constant
+        self.gamma = gamma      # discount factor
+        self.actions = actions  # action is a dictionary of key(State):value(List(Action))
 
-u = qlearn(s, aa, a, pa, dest, df, r, stop, debug=True)
+    def getQ(self, state, action):
+        return self.q.get((state, action), 0.0)
 
-print u
+    def learnQ(self, state, action, reward, value):
+        '''
+        Q-learning:
+            Q(s, a) += alpha * (reward(s,a) + max(Q(s') - Q(s,a))            
+        '''
+        oldv = self.q.get((state, action), None)
+        if oldv is None:
+            self.q[(state, action)] = reward
+        else:
+            self.q[(state, action)] = oldv + self.alpha * (value - oldv)
 
+    def choose_action(self, state, return_q=False):
+        q = [self.getQ(state, a) for a in self.actions[state]]
+        maxQ = max(q)
 
+        if random.random() < self.epsilon:
+            # altered to remove magic numbers and change back to a truly random choice
+            if return_q:
+                return random.choice(self.actions[state]), q
+            return random.choice(self.actions[state])
+
+        count = q.count(maxQ)
+        # In case there're several state-action max values 
+        # we select a random one among them
+        if count > 1:
+            best = [i for i in range(len(self.actions[state])) if q[i] == maxQ]
+            i = random.choice(best)
+        else:
+            i = q.index(maxQ)
+
+        action = self.actions[state][i]        
+        if return_q: # if they want it, give it!
+            return action, q
+        return action
+
+    def learn(self, state1, action1, reward, state2):
+        maxqnew = max([self.getQ(state2, a) for a in self.actions[state2]])
+        self.learnQ(state1, action1, reward, reward + self.gamma*maxqnew)
+    
+    def train(self, start_state, environment, reward_functions, max_iter=None, state_function=lambda results: results[0], done_function=lambda results: results[2]):
+        use_max_iter = max_iter is not None
+        iterations = 0
+        new_state = start_state
+        done = False
+        while not done and (not use_max_iter or iterations < max_iter):
+            new_state, done = self.train_step(new_state, environment, reward_functions, state_function, done_function)
+
+    def train_step(self, state, environment, reward_functions, state_function=lambda results: results[0], done_function=lambda results: results[2]):
+        # Choose the action
+        action = self.choose_action(state, False)
+
+        # Take the action
+        results = environment.step(action)
+
+        # Process results
+        rewards = [f(results) for f in reward_functions]
+
+        # Get state2
+        state2 = state_function(results)
+
+        # Call learn
+        self.learn(state, action, rewards, state2)
+
+        # Evaluate doneness
+        done = done_function(results)
+
+        # Return new state
+        return state2, done
