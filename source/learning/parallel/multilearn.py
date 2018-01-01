@@ -75,7 +75,7 @@ class MultiLearn(sequential.multilearn.MultiLearn):
 
     def choose_action_vote(self, state, return_q=False):
         q = self.getQ(state)
-        qmaxes = (max([QL.getQ(state,a) for a in QL.actions[state]]) for QL in self.QLearners)
+        qmaxes = QLearnersRDD.map(lambda QL: (max([QL.getQ(state,a) for a in QL.actions[state]])))
 
         action_list = self.filter(q, state)
 
