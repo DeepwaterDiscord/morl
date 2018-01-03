@@ -2,3 +2,5 @@
 *.code-workspace
 
 \.vscode
+
+bin/gym
