@@ -1,9 +1,16 @@
 import gym
-from qlearn import QLearn
+from sequential.qlearn import QLearn
+
+import sys
+sys.path.append("../../")
+
+from sequential.multilearn import MultiLearn
+
+#from source.config import Config
+
 import re
 import matplotlib.pyplot as plt
 import math
-from multilearn import MultiLearn
 
 #LEFT = 0
 #DOWN = 1
@@ -11,6 +18,7 @@ from multilearn import MultiLearn
 #UP = 3
 
 env = gym.make('FrozenLake-v0')
+menv = gym.make('FrozenLake-v0')
 eps = 1.0
 gam = 0.95
 space = env.action_space
@@ -38,21 +46,25 @@ for trial in range(1, 10):
     prev_reward = 0
 
     alph = trial / 10.0
-    print alph
     q = QLearn(acts_dict, epsilon=eps, alpha=alph, gamma=gam, reward_function=lambda x: x[1])
     reward_funcs = [lambda x: x[1], punish_falls ]
-    mq = MultiLearn(actions=acts_dict, epsilon=eps, alpha=alph, gamma=gam, nrewards=reward_funcs)
+    mq = MultiLearn(actions=acts_dict, epsilon=eps, alpha=alph, gamma=gam, reward_functions=reward_funcs)
     for epoch in range(num_epochs):
         epoch_reward = 0
+        mepoch_reward = 0
         prev_observation = env.reset()
+        mprev_observation = menv.reset()
         this_reward = 0
         #env.render()
         #q.epsilon = max(1 / (epoch + 1), 0.001)
         # temperature for boltzmann
-        q.epsilon = max(1 / (epoch + 1), 0.01)
+        ep = max(1 / (epoch + 1), 0.01)
+        q.epsilon = ep
+        mq.epsilon = ep
         #q.alpha = 1 / (epoch + 1)
         # Learning 
         q.train(start_state=prev_observation, environment=env, max_iter=99)
+        mq.train(start_state=prev_observation, environment=menv, max_iter=99)
         
         
         
@@ -88,19 +100,27 @@ for trial in range(1, 10):
         
         # Testing
         q.epsilon = 0.00 # temperature for boltzmann
+        mq.epsilon = 0.00
         #q.epsilon = 0.00 # epsilon for other methods
         for i in range(num_tests):
             prev_observation = env.reset()
+            mprev_observation = menv.reset()
             for t in range(100):
                 action = q.choose_action(prev_observation)
+                maction = mq.choose_action(mprev_observation)
                 
                 observation, reward, done, info = env.step(action)
+                mobservation, mreward, mdone, minfo = menv.step(maction)
                 
                 epoch_reward += reward
+                mepoch_reward += mreward
                 
                 sars = (prev_observation, action, reward, observation)
                 
+                msars = (mprev_observation, maction, mreward, mobservation)
+                
                 prev_observation = observation
+                mprev_observation = mobservation
                 
                 if done:
                     #print("Episode finished after {} timesteps".format(t+1))
