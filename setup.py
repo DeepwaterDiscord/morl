@@ -12,7 +12,7 @@ setup(name="morl",
           'matplotlib',
           'numpy',
           'pandas',
-          'pyspark'
+          'pyspark',
       ],
       dependency_links=["https://github.com/openai/gym/tarball/master"],
       zip_safe=False)
