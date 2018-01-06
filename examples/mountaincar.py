@@ -1,5 +1,5 @@
 import gym
-from qlearn import QLearn
+from ..learning.sequential.qlearn import QLearn
 import re
 import matplotlib.pyplot as plt
 import math

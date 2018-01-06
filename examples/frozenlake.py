@@ -1,10 +1,9 @@
 import gym
-from sequential.qlearn import QLearn
+from ..learning.sequential.qlearn import QLearn
 
 import sys
-sys.path.append("../../")
 
-from sequential.multilearn import MultiLearn
+from ..learning.sequential.multilearn import MultiLearn
 
 #from source.config import Config
 

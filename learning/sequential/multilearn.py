@@ -1,5 +1,5 @@
 import random
-from sequential.qlearn import QLearn
+from .qlearn import QLearn
 
 class MultiLearn(object):
     def __init__(self, actions, epsilon, alpha, gamma, reward_functions):
@@ -145,7 +145,7 @@ class MultiLearn(object):
         new_state = start_state
         done = False
         while not done and (not use_max_iter or iterations < max_iter):
-            new_state, done = self.train_step(new_state, environment, MultiLearn.choose_action_random, MultiLearn.choose_action_egreedy, state_function, done_function)
+            new_state, done = self.train_step(new_state, environment, method, rand_method, state_function, done_function)
 
     def train_step(self, state, environment, method=choose_action_random, rand_method=choose_action_egreedy, state_function=lambda results: results[0], done_function=lambda results: results[2]):
         # Choose the action

@@ -1,14 +1,14 @@
 import random
-from source.learning import sequential
-from source.config import Config
-from source.learning.sequential.qlearn import QLearn
+from ..sequential.multilearn import MultiLearn
+from ...config import Config
+from ..sequential.qlearn import QLearn
 from pyspark import SparkContext
 
-class MultiLearn(sequential.multilearn.MultiLearn):
+class MultiLearnP(MultiLearn):
     def __init__(self, actions, epsilon, alpha, gamma, reward_functions):
-        super(MultiLearn, self).__init__(actions, epsilon, alpha, gamma, reward_functions)
+        super(MultiLearnP, self).__init__(actions, epsilon, alpha, gamma, reward_functions)
         self.sc = SparkContext(Config.SPARK_MASTER, Config.SPARK_APP_NAME)
-        self.QLearnersRDD = self.sc.parallelize([QLearn(actions, epsilon, alpha, gamma, reward_functions[n]) for n in range(self.nrewards)])
+        self.QLearnersRDD = self.sc.parallelize([(n, QLearn(actions, epsilon, alpha, gamma, reward_functions[n])) for n in range(self.nrewards)])
 
     @property
     def epsilon(self):
@@ -17,7 +17,7 @@ class MultiLearn(sequential.multilearn.MultiLearn):
     @epsilon.setter
     def epsilon(self, value):
         self._epsilon = value
-        self.QLearnersRDD = self.QLearnersRDD.map(lambda QL: QL.update(epsilon=value))
+        self.QLearnersRDD = self.QLearnersRDD.map(lambda QL: (QL[0], QL[1].update(epsilon=value)))
         return self._epsilon
 
     @property
@@ -27,7 +27,7 @@ class MultiLearn(sequential.multilearn.MultiLearn):
     @alpha.setter
     def alpha(self, value):
         self._alpha = value
-        self.QLearnersRDD = self.QLearnersRDD.map(lambda QL: QL.update(alpha=value))
+        self.QLearnersRDD = self.QLearnersRDD.map(lambda QL: (QL[0], QL[1].update(alpha=value)))
         return self._alpha
 
     @property
@@ -37,11 +37,19 @@ class MultiLearn(sequential.multilearn.MultiLearn):
     @gamma.setter
     def gamma(self, value):
         self._gamma = value
-        self.QLearnersRDD = self.QLearnersRDD.map(lambda QL: QL.update(gamma=value))
+        self.QLearnersRDD = self.QLearnersRDD.map(lambda QL: (QL[0], QL[1].update(gamma=value)))
         return self._gamma
 
     def getQ(self, state):
-        {a: self.QLearnersRDD.map(lambda QL: QL.getQ(state, a)) for a in self.actions[state]}
+        """
+            Returns q values for all q learners and actions from a given state as
+            List(Dictionary(action: Qvalue)) with 1 element per QLearner
+            Dictionary(action: List(Qvalues))
+        """
+        self.QLearners = self.QLearnersRDD.map(lambda QL: QL[1]).collect()
+        return {a:[QL.getQ(state, a) for QL in self.QLearners] for a in self.actions[state]}
+            
+        
 
     def choose_actions(self, state, return_q=False):
         q = self.getQ(state)
@@ -75,7 +83,7 @@ class MultiLearn(sequential.multilearn.MultiLearn):
 
     def choose_action_vote(self, state, return_q=False):
         q = self.getQ(state)
-        qmaxes = QLearnersRDD.map(lambda QL: (max([QL.getQ(state,a) for a in QL.actions[state]])))
+        qmaxes = self.QLearnersRDD.map(lambda QL: (max([QL[1].getQ(state,a) for a in QL[1].actions[state]]))).collect()
 
         action_list = self.filter(q, state)
 
@@ -112,4 +120,4 @@ class MultiLearn(sequential.multilearn.MultiLearn):
         return qfilter
 
     def learn(self, state1, action1, results, state2):
-        self.QLearnersRDD = self.QLearnersRDD.map(lambda QL: QL.learn(state1, action1, results, state2))
+        self.QLearnersRDD = self.QLearnersRDD.map(lambda QL: QL[1].learn(state1, action1, results, state2))
