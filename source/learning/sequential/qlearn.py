@@ -26,19 +26,26 @@ class QLearn(object):
         else:
             self.q[(state, action)] = oldv + self.alpha * (value - oldv)
 
-    def choose_action_egreedy(self, state):
+    def choose_action_egreedy(self, state, return_q=False):
         if random.random() < self.epsilon:
             # altered to remove magic numbers and change back to a truly random choice
-            return random.choice(self.actions[state])
+            if return_q:
+                act = random.choice(self.actions[state])
+                q = self.getQ(state, act)
+                return random.choice(self.actions[state]), q
+            else:
+                return random.choice(self.actions[state])
         else:
             return None
 
     def choose_action(self, state, return_q=False, rand_method=choose_action_egreedy):
         q = [self.getQ(state, a) for a in self.actions[state]]
         maxQ = max(q)
-
+        
+        action = 0
         # altered to allow for various exploration strategies
-        action = rand_method(state, return_q)
+        action = rand_method(self, state, return_q)
+            
         if action is None:
             count = q.count(maxQ)
             # In case there're several state-action max values 
@@ -67,7 +74,7 @@ class QLearn(object):
         new_state = start_state
         done = False
         while not done and (not use_max_iter or iterations < max_iter):
-            new_state, done = self.train_step(new_state, environment, state_function, done_function)
+            new_state, done = self.train_step(new_state, environment, QLearn.choose_action_egreedy, state_function, done_function)
 
     def train_step(self, state, environment, rand_method=choose_action_egreedy, state_function=lambda results: results[0], done_function=lambda results: results[2]):
         # Choose the action

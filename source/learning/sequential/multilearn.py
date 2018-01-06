@@ -1,5 +1,5 @@
 import random
-from source.learning.sequential.qlearn import QLearn
+from sequential.qlearn import QLearn
 
 class MultiLearn(object):
     def __init__(self, actions, epsilon, alpha, gamma, reward_functions):
@@ -106,9 +106,9 @@ class MultiLearn(object):
             return None
 
     def choose_action(self, state, return_q=False, method=choose_action_random, rand_method=choose_action_egreedy):
-        action = rand_method(state, return_q)
+        action = rand_method(self, state, return_q)
         if action is None:
-            action = method(state, return_q)
+            action = method(self, state, return_q)
         return action
     
     def filter(self, qarray, state):
@@ -126,7 +126,10 @@ class MultiLearn(object):
                 continue
             else:
                 # otherwise, if it dominates something else remove it.
-                qfilter.remove(dominated_action for dominated_action in qfilter if dominates[dominated_action])
+                for dominated_action in qfilter:
+                    if dominates[dominated_action]:
+                        qfilter.remove(dominated_action)
+                #qfilter.remove(dominated_action for dominated_action in qfilter if dominates[dominated_action])
 
                 # regardless of whether it dominates something else, append it.
                 qfilter.append(a)
@@ -142,7 +145,7 @@ class MultiLearn(object):
         new_state = start_state
         done = False
         while not done and (not use_max_iter or iterations < max_iter):
-            new_state, done = self.train_step(new_state, environment, method, rand_method, state_function, done_function)
+            new_state, done = self.train_step(new_state, environment, MultiLearn.choose_action_random, MultiLearn.choose_action_egreedy, state_function, done_function)
 
     def train_step(self, state, environment, method=choose_action_random, rand_method=choose_action_egreedy, state_function=lambda results: results[0], done_function=lambda results: results[2]):
         # Choose the action
