@@ -1,27 +1,47 @@
 import sys
 from .examples import frozenlake
-from .examples import mountaincar
+# from .examples import mountaincar
 from .util import parse_args
 
 # Main Execution:
-if sys.argv[1] == "frozenlake":
-    # Specify frozenlake defaults:
-    defaults = {}
-    # Parse command line args:
-    arguments = parse_args(sys.argv[3:], defaults)
-    
-    # run multilearn or qlearn with arguments:
-    if sys.argv[2] == "multilearn":
-        frozenlake.run_frozen_lake_multilearn(arguments["epsilon"], arguments["gamma"],
-                                              arguments["alpha"], arguments["reward_functions"],
-                                              arguments["num_epochs"], arguments["num_tests"],
-                                              arguments["incr_alpha"], arguments["show_plots"],
-                                              arguments["plot_name_prefix"])
-    elif sys.argv[2] == "qlearn":
-        frozenlake.run_frozen_lake_qlearn(arguments["epsilon"], arguments["gamma"],
-                                          arguments["alpha"], arguments["reward_function"],
-                                          arguments["num_epochs"], arguments["num_tests"],
-                                          arguments["incr_alpha"], arguments["show_plots"],
-                                          arguments["plot_name_prefix"])
+if len(sys.argv) < 2:
+    sys.stderr.write("""Please specify running mode:\n
+                        \tfrozenlake\n\tmountaincar\n\tmujoco\n\tcustom\n""")
+else:
+    if sys.argv[1] == "frozenlake":
+        # Specify frozenlake defaults:
+        DEFAULTS = {"epsilon": 1.0, "gamma": 0.95, "alpha": 0.4,
+                    "reward_function": lambda x: x[1], # qlearn only takes 1
+                    "reward_functions": (lambda x: x[1], frozenlake.punish_falls), # multilearn
+                    "num_epochs": 2000, "num_tests": 99, "increment_alpha": False,
+                    "show_plots": False, "plot_name_prefix": "plot_learning_rate_"}
+        # Parse command line args:
+        ARGUMENTS = parse_args(sys.argv[3:], DEFAULTS)
+
+        # run multilearn or qlearn with ARGUMENTS:
+        if sys.argv[2] == "multilearn":
+            frozenlake.run_frozen_lake_multilearn(ARGUMENTS["epsilon"], ARGUMENTS["gamma"],
+                                                  ARGUMENTS["alpha"], ARGUMENTS["reward_functions"],
+                                                  ARGUMENTS["num_epochs"], ARGUMENTS["num_tests"],
+                                                  ARGUMENTS["incr_alpha"], ARGUMENTS["show_plots"],
+                                                  ARGUMENTS["plot_name_prefix"])
+        elif sys.argv[2] == "qlearn":
+            frozenlake.run_frozen_lake_qlearn(ARGUMENTS["epsilon"], ARGUMENTS["gamma"],
+                                              ARGUMENTS["alpha"], ARGUMENTS["reward_function"],
+                                              ARGUMENTS["num_epochs"], ARGUMENTS["num_tests"],
+                                              ARGUMENTS["incr_alpha"], ARGUMENTS["show_plots"],
+                                              ARGUMENTS["plot_name_prefix"])
+        else:
+            sys.stderr.write("Please specify algorithm:\n\tmultilearn\n\tqlearn")
+    elif sys.argv[1] == "mountaincar":
+        sys.stderr.write("Feature Not Available: MORL mountaincar is coming soon.\
+                          Thank you for your patience.\n")
+    elif sys.argv[1] == "mujoco":
+        sys.stderr.write("Feature Not Available: MORL mujoco is coming soon.\
+                          Thank you for your patience.\n")
+    elif sys.argv[1] == "custom":
+        sys.stderr.write("Feature Not Available: MORL custom is coming soon.\
+                          Thank you for your patience.\n")
     else:
-        print "Please specify:\"
+        sys.stderr.write("Feature Not Available: MORL "+ sys.argv[1] + \
+                            "is not a known command.\n")
