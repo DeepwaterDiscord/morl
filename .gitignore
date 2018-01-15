@@ -1,6 +1,6 @@
-
+*.pyc
 *.code-workspace
-
+*.egg-info
 \.vscode
 
 bin/gym
