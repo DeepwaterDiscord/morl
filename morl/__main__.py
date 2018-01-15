@@ -35,15 +35,16 @@ else:
                                               ARGUMENTS["incr_alpha"], ARGUMENTS["show_plots"],
                                               ARGUMENTS["plot_name_prefix"])
         else:
-            sys.stderr.write("Unknown algorithm specification.  Please specify algorithm:\n\tmultilearn\n\tqlearn\n")
+            sys.stderr.write("Unknown algorithm specification.  Please specify algorithm:"+
+                             "\n\tmultilearn\n\tqlearn\n")
     elif sys.argv[1] == "mountaincar":
         sys.stderr.write("")
     elif sys.argv[1] == "mujoco":
-        sys.stderr.write("Feature Not Available: MORL mujoco is coming soon.\
-                          Thank you for your patience.\n")
+        sys.stderr.write("Feature Not Available: MORL mujoco is coming soon.\n"+
+                         "Thank you for your patience.\n")
     elif sys.argv[1] == "custom":
-        sys.stderr.write("Feature Not Available: MORL custom is coming soon.\
-                          Thank you for your patience.\n")
+        sys.stderr.write("Feature Not Available: MORL mujoco is coming soon.\n"+
+                         "Thank you for your patience.\n")
     else:
-        sys.stderr.write("Feature Not Available: MORL "+ sys.argv[1] + \
-                            "is not a known command.\n")
+        sys.stderr.write("Feature Not Available: MORL " + sys.argv[1] +
+                         " is not a known command.\n")
