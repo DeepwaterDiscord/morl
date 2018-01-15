@@ -93,7 +93,7 @@ def run_frozen_lake(qlearner, num_epochs, num_tests, increment_alpha, show_plots
                         break
 
             if epoch % 10 == 0:
-                print "Epoch %i finished, total reward: %0.3f" % (epoch+1, epoch_reward)
+                print "Epoch %i finished, total reward: %0.6f" % (epoch+1, epoch_reward)
 
             reward_per_epoch.append(epoch_reward/num_tests)
 
