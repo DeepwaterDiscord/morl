@@ -1,10 +1,12 @@
 from ..learning.sequential.qlearn import QLearn
-import gym
-import re
+from ..learning.sequential.multilearn import MultiLearn
 import matplotlib.pyplot as plt
-import math
 import numpy as np
 import pandas as p
+import gym
+import re
+import math
+
 
 
 def make_state(bin_nums):
@@ -13,7 +15,7 @@ def make_state(bin_nums):
 def convert_to_bin(val, bins):
   return np.digitize(x=[val], bins=bins)[0]
   
-def get_state(observation, bin_collection):
+def get_state(observation, bin_collection, env):
   pos_state = convert_to_bin(observation[0], bin_collection[0])
   vel_state = convert_to_bin(observation[1], bin_collection[1])
   states = map(lambda i: convert_to_bin(observation[i], bin_collection[i]), range(env.observation_space.shape[0]))
@@ -39,16 +41,16 @@ def run_mountain_car_qlearn(epsilon=1.0, gamma=0.95, alpha=0.4,
 
     env = gym.make('MountainCar-v0')
     acts_dict = {}
-    for p in xrange(len(pos_bins)):
-    for v in xrange(len(vel_bins)):
-        acts_dict[make_state([p,v])] = acts
+    for pos in xrange(len(pos_bins)):
+        for vel in xrange(len(vel_bins)):
+            acts_dict[make_state([pos,vel])] = acts
 
-    learner = QLearn(actions=ACTS_DICT, epsilon=epsilon, alpha=alpha, gamma=gamma,
+    learner = QLearn(actions=acts_dict, epsilon=epsilon, alpha=alpha, gamma=gamma,
                      reward_function=reward_function)
-    run_mountain_car(learner, num_epochs, num_tests, increment_alpha, show_plots, plot_name_prefix, env)
+    run_mountain_car(learner, num_epochs, num_tests, increment_alpha, show_plots, plot_name_prefix, env, bin_col)
  
 def run_mountain_car_multilearn(epsilon=1.0, gamma=0.95, alpha=0.4,
-                               reward_functions=(lambda x: x[1], punish_falls),
+                               reward_functions=(lambda x: x[1]),
                                num_epochs=2000, num_tests=99, increment_alpha=False,
                                show_plots=False, plot_name_prefix="plot_learning_rate_"):
     num_bins = 1000 # 10,000 causes a memory error
@@ -66,15 +68,15 @@ def run_mountain_car_multilearn(epsilon=1.0, gamma=0.95, alpha=0.4,
 
     env = gym.make('MountainCar-v0')
     acts_dict = {}
-    for p in xrange(len(pos_bins)):
-    for v in xrange(len(vel_bins)):
-        acts_dict[make_state([p,v])] = acts
+    for pos in xrange(len(pos_bins)):
+        for vel in xrange(len(vel_bins)):
+            acts_dict[make_state([pos,vel])] = acts
 
-    learner = MultiLearn(actions=ACTS_DICT, epsilon=epsilon, alpha=alpha, gamma=gamma,
+    learner = MultiLearn(actions=acts_dict, epsilon=epsilon, alpha=alpha, gamma=gamma,
                          reward_functions=reward_functions)
-    run_mountain_car(learner, num_epochs, num_tests, increment_alpha, show_plots, plot_name_prefix, env)
+    run_mountain_car(learner, num_epochs, num_tests, increment_alpha, show_plots, plot_name_prefix, env, bin_col)
 
-def run_mountain_car(qlearner, num_epochs, num_tests, increment_alpha, show_plots, plot_name_prefix, env):
+def run_mountain_car(qlearner, num_epochs, num_tests, increment_alpha, show_plots, plot_name_prefix, env, bin_col):
     for trial in range(1, 10):
         epoch_only_rewards = []
 
@@ -95,15 +97,16 @@ def run_mountain_car(qlearner, num_epochs, num_tests, increment_alpha, show_plot
             qlearner.epsilon = eps
             #q.alpha = 1 / (epoch + 1)
             # Learning 
-            ss = get_state(prev_observation, bin_col)
-            qlearner.train(start_state=ss, environment=env, state_function=lambda results:get_state(results[0], bin_col))
+            ss = get_state(prev_observation, bin_col, env)
+            qlearner.train(start_state=ss, environment=env, state_function=lambda results:get_state(results[0], bin_col, env))
 
             # Testing
             qlearner.epsilon = 0.00
             for _i in range(num_tests):
                 prev_observation = env.reset()  
                 for _t in range(200):
-                    action = qlearner.choose_action(prev_observation)
+                    ss = get_state(prev_observation, bin_col, env)
+                    action = qlearner.choose_action(ss)
 
                     observation, reward, done, _ = env.step(action)
 
@@ -133,3 +136,4 @@ def run_mountain_car(qlearner, num_epochs, num_tests, increment_alpha, show_plot
         
         break
 
+run_mountain_car_qlearn()
