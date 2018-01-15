@@ -31,8 +31,8 @@ def run_frozen_lake_qlearn(epsilon=1.0, gamma=0.95, alpha=0.4,
         acts_dict[state] = acts
     learner = QLearn(actions=acts_dict, epsilon=epsilon, alpha=alpha, gamma=gamma,
                      reward_function=reward_function)
-    run_frozen_lake(learner, num_epochs, num_tests, show_plots, plot_name_prefix,
-                    increment_alpha, env)
+    run_frozen_lake(learner, num_epochs, num_tests, increment_alpha, show_plots,  
+                    plot_name_prefix, env)
 
 def run_frozen_lake_multilearn(epsilon=1.0, gamma=0.95, alpha=0.4,
                                reward_functions=(lambda x: x[1], punish_falls),
@@ -49,8 +49,8 @@ def run_frozen_lake_multilearn(epsilon=1.0, gamma=0.95, alpha=0.4,
         acts_dict[state] = acts
     learner = MultiLearn(actions=acts_dict, epsilon=epsilon, alpha=alpha, gamma=gamma,
                          reward_functions=reward_functions)
-    run_frozen_lake(learner, num_epochs, num_tests, show_plots, plot_name_prefix,
-                    increment_alpha, env)
+    run_frozen_lake(learner, num_epochs, num_tests, increment_alpha, show_plots,  
+                    plot_name_prefix, env)
 
 def run_frozen_lake(qlearner, num_epochs, num_tests, increment_alpha, show_plots,
                     plot_name_prefix, env):
