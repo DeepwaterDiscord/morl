@@ -1,4 +1,5 @@
 import sys
+from . import testing
 from .examples import frozenlake
 from .examples import mountaincar
 from .util import parse_args
@@ -9,7 +10,12 @@ if len(sys.argv) < 2:
                      "\n\tfrozenlake\n\tmountaincar"+
                      "\n\tmujoco\n\tcustom\n")
 else:
-    if sys.argv[1] == "frozenlake":
+    if sys.argv[1] == "test":
+        if len(sys.argv) >=3 and sys.argv[2] == "debug":
+            testing.run(debug=True)
+        else:
+            testing.run()
+    elif sys.argv[1] == "frozenlake":
         # Specify frozenlake defaults:
         DEFAULTS = {"epsilon": 1.0, "gamma": 0.95, "alpha": 0.4,
                     "reward_function": lambda x: x[1], # qlearn only takes 1
