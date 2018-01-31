@@ -8,7 +8,7 @@ sudo pip install -e .
 
 This should install all necessary dependencies
 
-## Command Line Interface
+## Command Line Examples
 To use the command line tool, make sure you're in the base directory of the project. The following is the basic command for the repository:
 ```
 python -m morl
