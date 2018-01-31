@@ -1,7 +1,7 @@
 import pickle
 import datetime
 
-class MORLEnvironment:
+class MORLEnvironment(object):
     def __init__(self, learner_klass, n_learners=0, epsilon_start=0.1, alpha_start=0.9, gamma_start=0.9):
         # Initialize Configuration
         self._epsilon_start = epsilon_start
@@ -22,7 +22,7 @@ class MORLEnvironment:
     name = "Generic MORL Environment"
     default_actions = [0,1]
 
-    def step(self):
+    def step(self, action):
         # returns tuple of next_state, rewards, done
         return (self.states()[0], 0, False)
 
@@ -48,3 +48,35 @@ class MORLEnvironment:
 
     def learner(self):
         return self.learner
+
+    def run(self, num_epochs, num_tests, test_length):
+    acts_dict = self.actions
+    learner = self.learner
+    reward_per_epoch = []
+  
+    for epoch in xrange(num_epochs):
+        epoch_reward = 0
+        prev_state = self.reset()
+        
+        # Learning
+        learner.train(start_state=prev_state, environment=self)
+        
+        
+        # Testing
+        learner.epsilon = 0.00
+        for _i in range(num_tests):
+            prev_state = self.reset()
+            for _t in range(test_length):
+                action = learner.choose_action(prev_state)
+                new_state, reward, done, _ = self.step(action)
+                epoch_reward += sum(reward)
+                prev_state = new_state
+                
+                if done:
+                    break
+        
+        if epoch % 10 == 0:
+            print("Epoch %i finished, total reward: %0.6f" 
+                    % (epoch+1, epoch_reward))
+                    
+        reward_per_epoch.append(epoch_reward/num_tests)
