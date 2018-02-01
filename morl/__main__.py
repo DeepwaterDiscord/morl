@@ -1,6 +1,7 @@
 import sys
 from .examples import frozenlake
 from .examples import mountaincar
+from .examples import frozenlake_config
 from .util import parse_args
 
 # Main Execution:
@@ -79,6 +80,8 @@ else:
     elif sys.argv[1] == "custom":
         sys.stderr.write("Feature Not Available: MORL mujoco is coming soon.\n"+
                          "Thank you for your patience.\n")
+    elif sys.argv[1] == "frozenlake_config":
+        frozenlake_config.Run_Example()
     else:
         sys.stderr.write("Feature Not Available: MORL " + sys.argv[1] +
                          " is not a known command.\n")
