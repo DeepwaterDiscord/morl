@@ -86,6 +86,7 @@ class QLearn(object):
         while not done and (not use_max_iter or iterations < max_iter):
             new_state, done = self.train_step(new_state, environment, QLearn.choose_action_egreedy,
                                               state_function, done_function)
+            iterations += 1
 
     def train_step(self, state, environment, rand_method=choose_action_egreedy,
                    state_function=lambda results: results[0],

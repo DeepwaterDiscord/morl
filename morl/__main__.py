@@ -2,6 +2,7 @@ import sys
 from .examples import frozenlake
 from .examples import mountaincar
 from .examples import frozenlake_config
+from .examples import dqn_mountaincar
 from .util import parse_args
 
 # Main Execution:
@@ -82,6 +83,8 @@ else:
                          "Thank you for your patience.\n")
     elif sys.argv[1] == "frozenlake_config":
         frozenlake_config.Run_Example()
+    elif sys.argv[1] == "dqn_mountaincar":
+        dqn_mountaincar.Run_Example()
     else:
         sys.stderr.write("Feature Not Available: MORL " + sys.argv[1] +
                          " is not a known command.\n")
