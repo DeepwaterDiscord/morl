@@ -6,19 +6,14 @@ import sys
 
 class FrozenLakeConfig(MORLEnvironment):
     def __init__(self):
-        self.env = gym.make("FrozenLake-v0")
-        super(FrozenLakeConfig, self).__init__(learner_klass=QLearn, n_learners=1)
+        self.env = gym.make("Humanoid-v1")
+        super(FrozenLakeConfig, self).__init__(learner_klass=MultiLearn, n_learners=1)   
 
-    name = "Frozen Lake Environment"
-    _left = 0
-    _down = 1
-    _right = 2
-    _up = 3
-    acts = [_left, _down, _right, _up]
+    name = "Mujoco Humanoid Environment"
     default_actions = acts
 
     def step(self, action):
-        return self.env.step(action)[0:3]
+        return self.env.step(action)
 
     def reset(self):
         return self.env.reset()
@@ -27,6 +22,6 @@ class FrozenLakeConfig(MORLEnvironment):
         return range(self.env.observation_space.n)
 
 def Run_Example():
-    flc = FrozenLakeConfig()
-    sys.stdout.write(str(flc.learner()))
-    flc.run(num_epochs=2000, num_tests=50, test_length=100)
+    mjc = FrozenLakeConfig()
+    sys.stdout.write(mjc.learner())
+    mjc.run(num_epochs=2000, num_tests=50, test_length=100)

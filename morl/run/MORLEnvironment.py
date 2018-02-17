@@ -1,20 +1,22 @@
+import sys
 import pickle
 import datetime
 from ..learning.sequential.qlearn import QLearn
 from ..learning.sequential.multilearn import MultiLearn
 
 class MORLEnvironment(object):
-    def __init__(self, learner_klass, n_learners=0, epsilon_start=0.1, alpha_start=0.9, gamma_start=0.9):
+    def __init__(self, learner_klass, n_learners=0, epsilon_start=0.1, alpha_start=0.9, gamma_start=0.9, doprint=True):
         # Initialize Configuration
         self._epsilon_start = epsilon_start
         self._alpha_start = alpha_start
         self._gamma_start = gamma_start
         self.nlearners = n_learners
         self.timestamp = datetime.time()
-        if isinstance(learner_klass, MultiLearn):
+        self.doprint = doprint
+        if learner_klass.__name__ == MultiLearn.__name__:
             reward_functions = [lambda results: results[1][x] for x in xrange(n_learners)]
             self.learner_o = MultiLearn(self.actions(), self.epsilon(), self.alpha(), self.gamma(), reward_functions)
-        elif isinstance(learner_klass, QLearn):
+        elif learner_klass.__name__ == QLearn.__name__:
             if n_learners > 1:
                 reward_function = lambda results: sum([results[1][x] for x in xrange(n_learners)])
                 self.learner_o = QLearn(self.actions(), self.epsilon(), self.alpha(), self.gamma(), reward_function)
@@ -53,7 +55,6 @@ class MORLEnvironment(object):
         return self.learner_o
 
     def run(self, num_epochs, num_tests, test_length):
-        acts_dict = self.actions
         learner = self.learner()
         reward_per_epoch = []
     
@@ -63,26 +64,25 @@ class MORLEnvironment(object):
             
             # Learning
             learner.train(start_state=prev_state, environment=self)
-            
-            
+
             # Testing
             learner.epsilon = 0.00
             for _i in range(num_tests):
                 prev_state = self.reset()
                 for _t in range(test_length):
                     action = learner.choose_action(prev_state)
-                    new_state, reward, done, _ = self.step(action)
+                    new_state, reward, done = self.step(action)
                     try:
                         epoch_reward += sum(reward)
                     except:
                         epoch_reward += reward
                     prev_state = new_state
-                    
+
                     if done:
                         break
-            
-            if epoch % 10 == 0:
-                print("Epoch %i finished, total reward: %0.6f" 
+
+            if epoch % 10 == 0 and self.doprint:
+                sys.stdout.write("Epoch %i finished, total reward: %0.6f\n" 
                         % (epoch+1, epoch_reward))
-                        
+    
             reward_per_epoch.append(epoch_reward/num_tests)

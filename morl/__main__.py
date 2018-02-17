@@ -9,7 +9,8 @@ from .util import parse_args
 if len(sys.argv) < 2:
     sys.stderr.write("Please specify running mode:"+
                      "\n\tfrozenlake\n\tmountaincar"+
-                     "\n\tmujoco\n\tcustom\n")
+                     "\n\tmujoco\n\tcustom"+
+                     "\n\tfrozenlake_config\n\tdqn_mountaincar\n")
 else:
     if sys.argv[1] == "frozenlake":
         # Specify frozenlake defaults:
