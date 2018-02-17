@@ -2,11 +2,14 @@ import random
 from .qlearn import QLearn
 
 class MultiLearn(object):
-    def __init__(self, actions, epsilon, alpha, gamma, reward_functions):
+    def __init__(self, actions, epsilon, alpha, gamma, reward_functions, default_actions={}, klass):
         self.nrewards = len(reward_functions)
-        self.qlearners = [QLearn(actions, epsilon, alpha, gamma, reward_functions[n])
+        self.qlearners = [klass(actions, epsilon, alpha, gamma, reward_functions[n], default_actions=default_actions)
                           for n in range(self.nrewards)]
-        self.actions = actions
+        self.actions = {}
+        self.actions.update(actions)
+        self.default_actions = default_actions
+
         self._epsilon = epsilon
         self._alpha = alpha
         self._gamma = gamma
@@ -47,7 +50,7 @@ class MultiLearn(object):
 
     def getQ(self, state):
         return {a:[qlearner.getQ(state, a) for qlearner in self.qlearners]
-                for a in self.actions[state]}
+                for a in self.get_actions(state)}
 
     def choose_actions(self, state, return_q=False):
         qval = self.getQ(state)
@@ -82,7 +85,7 @@ class MultiLearn(object):
 
     def choose_action_vote(self, state, return_q=False):
         qval = self.getQ(state)
-        qmaxes = (max([QL.getQ(state, a) for a in QL.actions[state]]) for QL in self.qlearners)
+        qmaxes = (max([QL.getQ(state, a) for a in QL.get_actions[state]]) for QL in self.qlearners)
 
         action_list = self.filter(qval, state)
 
@@ -116,6 +119,9 @@ class MultiLearn(object):
         if action is None:
             action = method(self, state, return_q)
         return action
+    
+    def get_actions(self, state):
+        return self.actions.get(state, self.default_actions)
 
     def filter(self, qarray, state):
         # Starft with an empty filter

@@ -8,13 +8,18 @@ class QLearn(object):
         Traditional QLearning with Single-Policy Learning based on a
         linear combination of reward components.
     """
-    def __init__(self, actions, epsilon, alpha, gamma, reward_function):
+    def __init__(self, actions, epsilon, alpha, gamma, reward_function, default_actions={}):
         self.q = {}
         self.epsilon = epsilon  # exploration constant
         self.alpha = alpha      # discount constant
         self.gamma = gamma      # discount factor
-        self.actions = actions  # action is a dictionary of key(State):value(List(Action))
+        self.default_actions = default_actions
+        self.actions = {}
+        self.actions.update(actions)  # action is a dictionary of key(State):value(List(Action))
         self.reward_function = reward_function # reward function that takes results tuple
+
+    def get_actions(self, state):
+        return self.actions.get(state, self.default_actions)
 
     def getQ(self, state, action):
         """ Returns Q value for state-action pair. """
@@ -36,17 +41,17 @@ class QLearn(object):
         if random.random() < self.epsilon:
             # altered to remove magic numbers and change back to a truly random choice
             if return_q:
-                act = random.choice(self.actions[state])
+                act = random.choice(self.get_actions(state))
                 qval = self.getQ(state, act)
-                return random.choice(self.actions[state]), qval
-            return random.choice(self.actions[state])
+                return random.choice(self.get_actions(state)), qval
+            return random.choice(self.get_actions(state))
         return None
 
     def choose_action(self, state, return_q=False, rand_method=choose_action_egreedy):
         """ Chooses an action using the random exploration strategy or the best possible
             if the exploration strategy fails to return an exploratory action
         """
-        qvals = [self.getQ(state, a) for a in self.actions[state]]
+        qvals = [self.getQ(state, a) for a in self.get_actions(state)]
         max_q = max(qvals)
 
         action = 0
@@ -58,12 +63,12 @@ class QLearn(object):
             # In case there're several state-action max values
             # we select a random one among them
             if count > 1:
-                best = [i for i in range(len(self.actions[state])) if qvals[i] == max_q]
+                best = [i for i in range(len(self.get_actions(state))) if qvals[i] == max_q]
                 i = random.choice(best)
             else:
                 i = qvals.index(max_q)
 
-            action = self.actions[state][i]
+            action = self.get_actions(state)[i]
 
         if return_q: # if they want it, give it!
             return action, qvals
