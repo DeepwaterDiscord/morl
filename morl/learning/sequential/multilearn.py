@@ -2,7 +2,7 @@ import random
 from .qlearn import QLearn
 
 class MultiLearn(object):
-    def __init__(self, actions, epsilon, alpha, gamma, reward_functions, default_actions={}, klass):
+    def __init__(self, actions, epsilon, alpha, gamma, reward_functions, default_actions={}, klass=QLearn):
         self.nrewards = len(reward_functions)
         self.qlearners = [klass(actions, epsilon, alpha, gamma, reward_functions[n], default_actions=default_actions)
                           for n in range(self.nrewards)]
