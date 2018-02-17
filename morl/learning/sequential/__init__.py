@@ -1,1 +1,1 @@
-from . import qlearn, multilearn
+from . import qlearn, multilearn, dqn
