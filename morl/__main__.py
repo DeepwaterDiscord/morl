@@ -3,6 +3,7 @@ from .examples import frozenlake
 from .examples import mountaincar
 from .examples import frozenlake_config
 from .examples import dqn_mountaincar
+from .examples import ddpg_pendulum
 from .util import parse_args
 
 # Main Execution:
@@ -86,6 +87,8 @@ else:
         frozenlake_config.Run_Example()
     elif sys.argv[1] == "dqn_mountaincar":
         dqn_mountaincar.Run_Example()
+    elif sys.argv[1] == "ddpg_pendulum":
+        ddpg_pendulum.Run_Example()
     else:
         sys.stderr.write("Feature Not Available: MORL " + sys.argv[1] +
                          " is not a known command.\n")
