@@ -13,10 +13,10 @@ class MountainCarConfig(MORLEnvironment):
 
         self.states_list = [(i, j) for i in xrange(len(pos_bins)) for j in xrange(len(vel_bins))]
         learn = learner
-        self.learner_o = learn
+        self.learner_obj = learn
         if learner is None:
             learn = QLearn({}, 0, 0, 0, lambda x: x[1])
-        super(MountainCarConfig, self).__init__(learner_klass=DQN_Learner, n_learners=1)
+        super(MountainCarConfig, self).__init__(learner_klass=None, n_learners=1)
         
         self.bins = [pos_bins, vel_bins]
         

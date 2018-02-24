@@ -13,16 +13,18 @@ class MORLEnvironment(object):
         self.nlearners = n_learners
         self.timestamp = datetime.time()
         self.doprint = doprint
-        if learner_klass.__name__ == MultiLearn.__name__:
+        if learner_klass is None:
+            sys.stderr.write("WARNING: Learner class is not defined, hopefully the learner_obj is set manually.\n")
+        elif learner_klass.__name__ == MultiLearn.__name__:
             reward_functions = [lambda results: results[1][x] for x in xrange(n_learners)]
-            self.learner_o = MultiLearn(self.actions(), self.epsilon(), self.alpha(), self.gamma(), reward_functions)
+            self.learner_obj = MultiLearn(self.actions(), self.epsilon(), self.alpha(), self.gamma(), reward_functions)
         elif learner_klass.__name__ == QLearn.__name__:
             if n_learners > 1:
                 reward_function = lambda results: sum([results[1][x] for x in xrange(n_learners)])
-                self.learner_o = QLearn(self.actions(), self.epsilon(), self.alpha(), self.gamma(), reward_function)
+                self.learner_obj = QLearn(self.actions(), self.epsilon(), self.alpha(), self.gamma(), reward_function)
             else:
                 reward_function = lambda results: results[1]
-                self.learner_o = QLearn(self.actions(), self.epsilon(), self.alpha(), self.gamma(), reward_function)
+                self.learner_obj = QLearn(self.actions(), self.epsilon(), self.alpha(), self.gamma(), reward_function)
 
     name = "Generic MORL Environment"
     default_actions = [0,1]
@@ -52,7 +54,7 @@ class MORLEnvironment(object):
         return {s: type(self).default_actions for s in self.states()}
 
     def learner(self):
-        return self.learner_o
+        return self.learner_obj
 
     def run(self, num_epochs, num_tests, test_length):
         learner = self.learner()
