@@ -15,8 +15,8 @@ class PendulumConfig(MORLEnvironment):
         learn = learner
         if learner is None:
             learn = QLearn({}, 0, 0, 0, lambda x: x[1])
-        self.learner_o = learn
-        super(PendulumConfig, self).__init__(learner_klass=DDPG_Learner,)
+        self.learner_obj = learn
+        super(PendulumConfig, self).__init__(learner_klass=DDPG_Learner, n_learners=3)
 
     def step(self, action):
         obs, rew, done, _ = self.env.step(action)
@@ -66,6 +66,6 @@ def Run_Example():
                                     reward_function=lambda x: x[1], actor=actor, 
                                     critic=critic, buffer=replay_buffer, 
                                     action_dim=action_dim, minibatch_size=minibatch_size)
-        pc.learner_o = ddpg_learner
+        pc.learner_obj = ddpg_learner
         pc.run(num_epochs=50000, num_tests=10, test_length=1000)
 

@@ -2,6 +2,7 @@ import sys
 from .examples import frozenlake
 from .examples import mountaincar
 from .examples import frozenlake_config
+from .examples import ddpg_mujoco
 from .examples import dqn_mountaincar
 from .examples import ddpg_pendulum
 from .util import parse_args
@@ -78,8 +79,7 @@ else:
             sys.stderr.write("Unknown algorithm specification.  Please specify algorithm:"+
                              "\n\tmultilearn\n\tqlearn\n")
     elif sys.argv[1] == "mujoco":
-        sys.stderr.write("Feature Not Available: MORL mujoco is coming soon.\n"+
-                         "Thank you for your patience.\n")
+        ddpg_mujoco.Run_Example()
     elif sys.argv[1] == "custom":
         sys.stderr.write("Feature Not Available: MORL mujoco is coming soon.\n"+
                          "Thank you for your patience.\n")

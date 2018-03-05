@@ -13,6 +13,7 @@ setup(name="morl",
           'numpy',
           'pandas',
           'pyspark',
+          'tflearn'
       ],
       dependency_links=["https://github.com/openai/gym/tarball/master"],
       zip_safe=False)

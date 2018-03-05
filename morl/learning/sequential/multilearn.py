@@ -85,7 +85,7 @@ class MultiLearn(object):
 
     def choose_action_vote(self, state, return_q=False):
         qval = self.getQ(state)
-        qmaxes = (max([QL.getQ(state, a) for a in QL.get_actions[state]]) for QL in self.qlearners)
+        qmaxes = (max([QL.getQ(state, a) for a in QL.get_actions(state)]) for QL in self.qlearners)
 
         action_list = self.filter(qval, state)
 

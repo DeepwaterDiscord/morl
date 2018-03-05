@@ -70,7 +70,9 @@ class ActorNetwork(object):
         # Combine the gradients here
         self.unnormalized_actor_gradients = tf.gradients(
             self.scaled_out, self.network_params, -self.action_gradient)
-        self.actor_gradients = list(map(lambda x: tf.div(x, self.batch_size), self.unnormalized_actor_gradients))
+        print self.unnormalized_actor_gradients
+        self.actor_gradients = list(map(lambda x: 0.0 if x is None else tf.div(x, self.batch_size), self.unnormalized_actor_gradients))
+        # self.actor_gradients = list(map(lambda x: x if x is None else tf.div(x, self.batch_size), self.unnormalized_actor_gradients))
 
         # Optimization Op
         self.optimize = tf.train.AdamOptimizer(self.learning_rate).\
@@ -341,15 +343,18 @@ def train(sess, env, args, actor, critic, actor_noise):
                 break
 
 class DDPG_Learner(QLearn):
-    def __init__(self, actions, epsilon, alpha, gamma, reward_function, actor, critic, buffer, action_dim, minibatch_size):
-        self.epsilon = epsilon
-        self.alpha = alpha
+    def __init__(self, actions, gamma, reward_function, action_dim, action_bound, state_dim, minibatch_size=64):
         self.gamma = gamma
         self.actions = actions
         self.reward_function = reward_function
-        self.actor = actor
-        self.critic = critic
-        self.buffer = buffer
+        self.sess = tf.Session()
+        self.actor = ActorNetwork(sess=self.sess, state_dim=state_dim, action_dim=action_dim, 
+                             action_bound=action_bound, learning_rate=0.0001, tau=0.0001, 
+                             batch_size=minibatch_size)
+        self.critic = CriticNetwork(sess=self.sess, state_dim=state_dim, action_dim=action_dim, 
+                             learning_rate=0.001, tau=0.0001, gamma=0.99, 
+                             num_actor_vars=self.actor.get_num_trainable_vars())
+        self.buffer = ReplayBuffer()
         self.actor_noise = OrnsteinUhlenbeckActionNoise(mu=np.zeros(action_dim))
         self.minibatch_size = minibatch_size
 
@@ -393,7 +398,7 @@ class DDPG_Learner(QLearn):
     def choose_action_egreedy(self, state, return_q=False):
         return self.choose_action(state, return_q=return_q)
 
-    def choose_action(self, state, return_q=False, rand_method=choose_action_egreedy):
+    def choose_action(self, state, return_q=False):
         a = self.actor.predict(np.reshape(state, (1, self.actor.s_dim))) + self.actor_noise()
         return a[0]
 

@@ -14,7 +14,8 @@ class MORLEnvironment(object):
         self.timestamp = datetime.time()
         self.doprint = doprint
         if learner_klass is None:
-            sys.stderr.write("WARNING: Learner class is not defined, hopefully the learner_obj is set manually.\n")
+            if not self.ignore_learner_warning:
+                sys.stderr.write("WARNING: Learner class is not defined, hopefully the learner_obj is set manually.\n")
         elif learner_klass.__name__ == MultiLearn.__name__:
             reward_functions = [lambda results: results[1][x] for x in xrange(n_learners)]
             self.learner_obj = MultiLearn(self.actions(), self.epsilon(), self.alpha(), self.gamma(), reward_functions)
@@ -28,6 +29,7 @@ class MORLEnvironment(object):
 
     name = "Generic MORL Environment"
     default_actions = [0,1]
+    ignore_learner_warning = False
 
     def step(self, action):
         # returns tuple of next_state, rewards, done
