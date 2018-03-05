@@ -70,8 +70,8 @@ class ActorNetwork(object):
         # Combine the gradients here
         self.unnormalized_actor_gradients = tf.gradients(
             self.scaled_out, self.network_params, -self.action_gradient)
-        print self.unnormalized_actor_gradients
-        self.actor_gradients = list(map(lambda x: 0.0 if x is None else tf.div(x, self.batch_size), self.unnormalized_actor_gradients))
+        #print self.unnormalized_actor_gradients
+        self.actor_gradients = list(map(lambda x: tf.div(x, self.batch_size), self.unnormalized_actor_gradients))
         # self.actor_gradients = list(map(lambda x: x if x is None else tf.div(x, self.batch_size), self.unnormalized_actor_gradients))
 
         # Optimization Op
@@ -357,6 +357,13 @@ class DDPG_Learner(QLearn):
         self.buffer = ReplayBuffer()
         self.actor_noise = OrnsteinUhlenbeckActionNoise(mu=np.zeros(action_dim))
         self.minibatch_size = minibatch_size
+        self.sess.run(tf.global_variables_initializer())
+
+        self.actor.update_target_network()
+        self.critic.update_target_network()
+
+    def __del__(self):
+        self.sess.close()
 
     def getQ(self, state, action):
         return self.critic.predict(state, action)

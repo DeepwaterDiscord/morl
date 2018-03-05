@@ -44,6 +44,7 @@ def Run_Example():
     action_dim = env.action_space.shape[0]
     action_bound = env.action_space.high
 
+    """
     with tf.Session() as sess:
         assert (env.action_space.high == -env.action_space.low)
 
@@ -58,14 +59,13 @@ def Run_Example():
 
         actor.update_target_network()
         critic.update_target_network()
+    """
+    # Initialize replay memory
+    #replay_buffer = ReplayBuffer(1000000, rand_seed)
 
-        # Initialize replay memory
-        replay_buffer = ReplayBuffer(1000000, rand_seed)
-
-        ddpg_learner = DDPG_Learner(actions=env.action_space, epsilon=1,alpha=0.001,gamma=0.99,
-                                    reward_function=lambda x: x[1], actor=actor, 
-                                    critic=critic, buffer=replay_buffer, 
-                                    action_dim=action_dim, minibatch_size=minibatch_size)
-        pc.learner_obj = ddpg_learner
-        pc.run(num_epochs=50000, num_tests=10, test_length=1000)
+    ddpg_learner = DDPG_Learner(actions=env.action_space,gamma=0.99, reward_function=lambda x: x[1],
+                                action_dim=action_dim, action_bound=action_bound, state_dim=state_dim, 
+                                minibatch_size=minibatch_size)
+    pc.learner_obj = ddpg_learner
+    pc.run(num_epochs=50000, num_tests=10, test_length=1000)
 
