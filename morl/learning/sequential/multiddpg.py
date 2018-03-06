@@ -1,14 +1,22 @@
 import random
 import numpy as np
+import tensorflow as tf
 from .ddpg import DDPG_Learner
 
 class MultiDDPG(object):
-    def __init__(self, actions, gamma, reward_functions, action_dim,action_bound, state_dim, minibatch_size=64, include_sum=True):
+    def __init__(self, actions, gamma, reward_functions, action_dim,action_bound, state_dim, minibatch_size=64, include_sum=False):
         self._gamma = gamma
         self.actions = actions
-        self.ddpglearners = [DDPG_Learner(actions, gamma, reward_function, action_dim, action_bound, state_dim, minibatch_size) for reward_function in reward_functions]
+        self.graphs = []
+        self.ddpglearners = []
+        for r in reward_functions:
+            g = tf.Graph()
+            self.graphs.append(g)
+            self.ddpglearners.append(DDPG_Learner(actions, gamma, r, action_dim, action_bound, state_dim, minibatch_size, graph=g))
         if include_sum:
-            self.ddpglearners.append(DDPG_Learner(actions, gamma, lambda x: sum([r(x) for r in reward_functions]), action_dim, action_bound, state_dim, minibatch_size))
+            g = tf.Graph()
+            self.graphs.append(g)
+            self.ddpglearners.append(DDPG_Learner(actions, gamma, lambda x: sum([r(x) for r in reward_functions]), action_dim, action_bound, state_dim, minibatch_size, graph=g))
         self.nrewards = len(self.ddpglearners)
 
     @property
