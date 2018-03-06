@@ -68,6 +68,11 @@ def Run_Example():
         lambda x: x[3]['reward_alive'],
         lambda x: x[3]['reward_linvel']
     )
+    """
+    reward_functions = (
+        lambda x: x[3]['reward_alive'],
+    )
+    """
     ddpg_multilearner = MultiDDPG(actions=env.action_space, gamma=0.8, reward_functions=reward_functions, action_dim=action_dim, action_bound=action_bound, state_dim=state_dim, minibatch_size=minibatch_size)
     pc.learner_obj = ddpg_multilearner
     pc.run(num_epochs=50000, num_tests=10, test_length=1000)

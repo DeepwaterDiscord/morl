@@ -70,7 +70,7 @@ class ActorNetwork(object):
         # Combine the gradients here
         self.unnormalized_actor_gradients = tf.gradients(
             self.scaled_out, self.network_params, -self.action_gradient)
-        #print self.unnormalized_actor_gradients
+        print self.unnormalized_actor_gradients
         self.actor_gradients = list(map(lambda x: tf.div(x, self.batch_size), self.unnormalized_actor_gradients))
         # self.actor_gradients = list(map(lambda x: x if x is None else tf.div(x, self.batch_size), self.unnormalized_actor_gradients))
 
@@ -343,11 +343,11 @@ def train(sess, env, args, actor, critic, actor_noise):
                 break
 
 class DDPG_Learner(QLearn):
-    def __init__(self, actions, gamma, reward_function, action_dim, action_bound, state_dim, minibatch_size=64):
+    def __init__(self, actions, gamma, reward_function, action_dim, action_bound, state_dim, minibatch_size=64, graph=tf.get_default_graph()):
         self.gamma = gamma
         self.actions = actions
         self.reward_function = reward_function
-        self.sess = tf.Session()
+        self.sess = tf.Session(graph=graph)
         self.actor = ActorNetwork(sess=self.sess, state_dim=state_dim, action_dim=action_dim, 
                              action_bound=action_bound, learning_rate=0.0001, tau=0.0001, 
                              batch_size=minibatch_size)
