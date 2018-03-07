@@ -46,6 +46,9 @@ class MultiDDPG(object):
     # def choose_action_median(self, state):
     #     return n
 
+    def choose_action(self, state):
+        return self.choose_action_random(state)
+
     def train(self, start_state, environment, max_iter=None, method=choose_action_random,
               state_function=lambda results: results[0],
               done_function=lambda results: results[2]):

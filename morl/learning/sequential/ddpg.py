@@ -70,7 +70,6 @@ class ActorNetwork(object):
         # Combine the gradients here
         self.unnormalized_actor_gradients = tf.gradients(
             self.scaled_out, self.network_params, -self.action_gradient)
-        print self.unnormalized_actor_gradients
         self.actor_gradients = list(map(lambda x: tf.div(x, self.batch_size), self.unnormalized_actor_gradients))
         # self.actor_gradients = list(map(lambda x: x if x is None else tf.div(x, self.batch_size), self.unnormalized_actor_gradients))
 
@@ -347,29 +346,34 @@ class DDPG_Learner(QLearn):
         self.gamma = gamma
         self.actions = actions
         self.reward_function = reward_function
-        self.sess = tf.Session(graph=graph)
-        self.actor = ActorNetwork(sess=self.sess, state_dim=state_dim, action_dim=action_dim, 
-                             action_bound=action_bound, learning_rate=0.0001, tau=0.0001, 
-                             batch_size=minibatch_size)
-        self.critic = CriticNetwork(sess=self.sess, state_dim=state_dim, action_dim=action_dim, 
-                             learning_rate=0.001, tau=0.0001, gamma=0.99, 
-                             num_actor_vars=self.actor.get_num_trainable_vars())
-        self.buffer = ReplayBuffer()
-        self.actor_noise = OrnsteinUhlenbeckActionNoise(mu=np.zeros(action_dim))
-        self.minibatch_size = minibatch_size
-        self.sess.run(tf.global_variables_initializer())
+        self.graph = graph
+        with self.graph.as_default():
+            self.sess = tf.Session(graph=graph)
+            self.actor = ActorNetwork(sess=self.sess, state_dim=state_dim, action_dim=action_dim, 
+                                action_bound=action_bound, learning_rate=0.0001, tau=0.0001, 
+                                batch_size=minibatch_size)
+            self.critic = CriticNetwork(sess=self.sess, state_dim=state_dim, action_dim=action_dim, 
+                                learning_rate=0.001, tau=0.0001, gamma=0.99, 
+                                num_actor_vars=self.actor.get_num_trainable_vars())
+            self.buffer = ReplayBuffer()
+            self.actor_noise = OrnsteinUhlenbeckActionNoise(mu=np.zeros(action_dim))
+            self.minibatch_size = minibatch_size
+            self.sess.run(tf.global_variables_initializer())
 
-        self.actor.update_target_network()
-        self.critic.update_target_network()
+            self.actor.update_target_network()
+            self.critic.update_target_network()
 
     def __del__(self):
-        self.sess.close()
+        with self.graph.as_default():
+            self.sess.close()
 
     def getQ(self, state, action):
-        return self.critic.predict(state, action)
+        with self.graph.as_default():
+            return self.critic.predict(state, action)
 
     def get_actions(self, state):
-        return self.actions
+        with self.graph.as_default():
+            return self.actions
 
     def learnQ(self, state, action, reward, value):
         if self.buffer.size() > self.minibatch_size:
@@ -431,19 +435,20 @@ class DDPG_Learner(QLearn):
     def train_step(self, state, environment, rand_method=choose_action_egreedy,
                    state_function=lambda results: results[0],
                    done_function=lambda results: results[2]):
-        s = tup_to_np(state)
+        with self.graph.as_default():
+            s = tup_to_np(state)
 
-        action = self.choose_action(s, False)
+            action = self.choose_action(s, False)
 
-        results = environment.step(action)
+            results = environment.step(action)
 
-        state2 = tup_to_np(state_function(results))
+            state2 = tup_to_np(state_function(results))
 
-        done = done_function(results)
+            done = done_function(results)
 
-        self.learn(state, action, results, state2, done)
-        
-        return state2, done
+            self.learn(state, action, results, state2, done)
+            
+            return state2, done
     
 """
 

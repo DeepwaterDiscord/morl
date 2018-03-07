@@ -20,10 +20,11 @@ class MujocoConfig(MultiLearnEnvironment):
         super(MujocoConfig, self).__init__(learner_klass=None)
 
     def step(self, action):
-        obs, rew, done, _ = self.env.step(action)
+        obs, rew, done, dict_rew = self.env.step(action)
+        dict_rew['total'] = rew
         if self.render:
             self.env.render()
-        return (obs, rew, done)
+        return (obs, dict_rew, done)
     
     def reset(self):
         return self.env.reset()
@@ -63,10 +64,10 @@ def Run_Example():
         #                             critic=critic, buffer=replay_buffer, 
         #                             action_dim=action_dim, minibatch_size=minibatch_size)
     reward_functions = (
-        lambda x: x[3]['reward_impact'],
-        lambda x: x[3]['reward_quadctrl'],
-        lambda x: x[3]['reward_alive'],
-        lambda x: x[3]['reward_linvel']
+        lambda x: x[1]['reward_impact'],
+        lambda x: x[1]['reward_quadctrl'],
+        lambda x: x[1]['reward_alive'],
+        lambda x: x[1]['reward_linvel']
     )
     """
     reward_functions = (

@@ -77,7 +77,7 @@ class MORLEnvironment(object):
                     action = learner.choose_action(prev_state)
                     new_state, reward, done = self.step(action)
                     try:
-                        epoch_reward += sum(reward)
+                        epoch_reward += sum(reward.values())
                     except:
                         epoch_reward += reward
                     prev_state = new_state
