@@ -1,4 +1,5 @@
 import sys
+import os
 from .examples import frozenlake
 from .examples import mountaincar
 from .examples import frozenlake_config
@@ -81,8 +82,12 @@ else:
     elif sys.argv[1] == "mujoco":
         ddpg_mujoco.Run_Example()
     elif sys.argv[1] == "custom":
-        sys.stderr.write("Feature Not Available: MORL mujoco is coming soon.\n"+
-                         "Thank you for your patience.\n")
+        if len(sys.argv) == 3 and os.path.isfile(sys.argv[2]):
+            execfile(sys.argv[2])
+            Run_Example()
+        else:
+            sys.stderr.write("Cannot open configuration file.  Please specify a configuration"+
+                             " file that exists.\n\tpython -m morl custom path/to/myconfig.py\n")       
     elif sys.argv[1] == "frozenlake_config":
         frozenlake_config.Run_Example()
     elif sys.argv[1] == "dqn_mountaincar":
