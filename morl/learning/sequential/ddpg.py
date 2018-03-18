@@ -47,12 +47,12 @@ class ActorNetwork(object):
         self.batch_size = batch_size
 
         # Actor Network
-        self.inputs, self.out, self.scaled_out = self.create_actor_network()
+        self.inputs, self.out, self.scaled_out = self.create_actor_network("train")
 
         self.network_params = tf.trainable_variables()
 
         # Target Network
-        self.target_inputs, self.target_out, self.target_scaled_out = self.create_actor_network()
+        self.target_inputs, self.target_out, self.target_scaled_out = self.create_actor_network("target")
 
         self.target_network_params = tf.trainable_variables()[
             len(self.network_params):]
@@ -65,36 +65,62 @@ class ActorNetwork(object):
                 for i in range(len(self.target_network_params))]
 
         # This gradient will be provided by the critic network
-        self.action_gradient = tf.placeholder(tf.float32, [None, self.a_dim])
+        try:
+            self.action_gradient = tf.get_collection("Action_gradient")[0]
+        except:
+            self.action_gradient = tf.placeholder(tf.float32, [None, self.a_dim])
+            tf.add_to_collection("Action_gradient", self.action_gradient)
 
+        """
+        print "Scaled Out:"
+        print type(self.scaled_out)
+        print "Network Params:"
+        print type(self.network_params)
+        print "Action Gradient:"
+        print type(self.action_gradient)
+        """
         # Combine the gradients here
         self.unnormalized_actor_gradients = tf.gradients(
             self.scaled_out, self.network_params, -self.action_gradient)
-        self.actor_gradients = list(map(lambda x: tf.div(x, self.batch_size), self.unnormalized_actor_gradients))
-        # self.actor_gradients = list(map(lambda x: x if x is None else tf.div(x, self.batch_size), self.unnormalized_actor_gradients))
 
-        # Optimization Op
-        self.optimize = tf.train.AdamOptimizer(self.learning_rate).\
-            apply_gradients(zip(self.actor_gradients, self.network_params))
+        #self.actor_gradients = list(map(lambda x: tf.div(x, self.batch_size), self.unnormalized_actor_gradients))
+        self.actor_gradients = list(map(lambda x: x if x is None else tf.div(x, self.batch_size), self.unnormalized_actor_gradients))
 
-        self.num_trainable_vars = len(
-            self.network_params) + len(self.target_network_params)
+        try:
+            self.optimize = tf.get_collection("Actor_optimize")[0]
+        except:
+            # Optimization Op
+            self.optimize = tf.train.AdamOptimizer(self.learning_rate).\
+                apply_gradients(zip(self.actor_gradients, self.network_params))
+            tf.add_to_collection("Actor_optimize", self.optimize)
 
-    def create_actor_network(self):
-        inputs = tflearn.input_data(shape=[None, self.s_dim])
-        net = tflearn.fully_connected(inputs, 400)
-        net = tflearn.layers.normalization.batch_normalization(net)
-        net = tflearn.activations.relu(net)
-        net = tflearn.fully_connected(net, 300)
-        net = tflearn.layers.normalization.batch_normalization(net)
-        net = tflearn.activations.relu(net)
-        # Final layer weights are init to Uniform[-3e-3, 3e-3]
-        w_init = tflearn.initializations.uniform(minval=-0.003, maxval=0.003)
-        out = tflearn.fully_connected(
-            net, self.a_dim, activation='tanh', weights_init=w_init)
-        # Scale output to -action_bound to action_bound
-        scaled_out = tf.multiply(out, self.action_bound)
-        return inputs, out, scaled_out
+        self.num_trainable_vars = len(self.network_params) + len(self.target_network_params)
+
+    def create_actor_network(self, tag):
+        try:
+            inputs = tf.get_collection("Actor_inputs_" + tag)[0]
+            out = tf.get_collection("Actor_out_" + tag)[0]
+            scaled_out = tf.get_collection("Actor_scaled_out_" + tag)[0]
+            print "Why"
+            return inputs, out, scaled_out
+        except:
+            inputs = tflearn.input_data(shape=[None, self.s_dim])
+            net = tflearn.fully_connected(inputs, 400)
+            net = tflearn.layers.normalization.batch_normalization(net)
+            net = tflearn.activations.relu(net)
+            net = tflearn.fully_connected(net, 300)
+            net = tflearn.layers.normalization.batch_normalization(net)
+            net = tflearn.activations.relu(net)
+            # Final layer weights are init to Uniform[-3e-3, 3e-3]
+            w_init = tflearn.initializations.uniform(minval=-0.003, maxval=0.003)
+            out = tflearn.fully_connected(
+                net, self.a_dim, activation='tanh', weights_init=w_init)
+            # Scale output to -action_bound to action_bound
+            scaled_out = tf.multiply(out, self.action_bound)
+            tf.add_to_collection("Actor_inputs_" + tag, inputs)
+            tf.add_to_collection("Actor_out_" + tag, out)
+            tf.add_to_collection("Actor_scaled_out_" + tag, scaled_out)
+            return inputs, out, scaled_out
 
     def train(self, inputs, a_gradient):
         self.sess.run(self.optimize, feed_dict={
@@ -134,12 +160,12 @@ class CriticNetwork(object):
         self.gamma = gamma
 
         # Create the critic network
-        self.inputs, self.action, self.out = self.create_critic_network()
+        self.inputs, self.action, self.out = self.create_critic_network("train")
 
         self.network_params = tf.trainable_variables()[num_actor_vars:]
 
         # Target Network
-        self.target_inputs, self.target_action, self.target_out = self.create_critic_network()
+        self.target_inputs, self.target_action, self.target_out = self.create_critic_network("target")
 
         self.target_network_params = tf.trainable_variables()[(len(self.network_params) + num_actor_vars):]
 
@@ -150,13 +176,24 @@ class CriticNetwork(object):
             + tf.multiply(self.target_network_params[i], 1. - self.tau))
                 for i in range(len(self.target_network_params))]
 
-        # Network target (y_i)
-        self.predicted_q_value = tf.placeholder(tf.float32, [None, 1])
+        try:
+            self.predicted_q_value = tf.get_collection("Critic_predicted_q_value")[0]
+            self.loss = tf.get_collection("Critic_loss")[0]
+            self.optimize = tf.get_collection("Critic_optimize")[0]
 
-        # Define loss and optimization Op
-        self.loss = tflearn.mean_square(self.predicted_q_value, self.out)
-        self.optimize = tf.train.AdamOptimizer(
-            self.learning_rate).minimize(self.loss)
+        except:
+            # Network target (y_i)
+            self.predicted_q_value = tf.placeholder(tf.float32, [None, 1])
+
+            # Define loss and optimization Op
+            #self.loss = tflearn.mean_square(self.predicted_q_value, self.out)
+            self.loss = tf.reduce_mean(tf.squared_difference(self.predicted_q_value, self.out))
+            self.optimize = tf.train.AdamOptimizer(
+                self.learning_rate).minimize(self.loss)
+            
+            tf.add_to_collection("Critic_predicted_q_value", self.predicted_q_value)
+            tf.add_to_collection("Critic_loss", self.loss)
+            tf.add_to_collection("Critic_optimize", self.optimize)
 
         # Get the gradient of the net w.r.t. the action.
         # For each action in the minibatch (i.e., for each x in xs),
@@ -165,26 +202,37 @@ class CriticNetwork(object):
         # actions except for one.
         self.action_grads = tf.gradients(self.out, self.action)
 
-    def create_critic_network(self):
-        inputs = tflearn.input_data(shape=[None, self.s_dim])
-        action = tflearn.input_data(shape=[None, self.a_dim])
-        net = tflearn.fully_connected(inputs, 400)
-        net = tflearn.layers.normalization.batch_normalization(net)
-        net = tflearn.activations.relu(net)
+    def create_critic_network(self, tag):
+        try:
+            inputs = tf.get_collection("Critic_inputs_" + tag)[0]
+            action = tf.get_collection("Critic_action_" + tag)[0]
+            out = tf.get_collection("Critic_out_" + tag)[0]
+            return inputs, action, out
+        except:
+            inputs = tflearn.input_data(shape=[None, self.s_dim], name="Inputs")
+            tf.add_to_collection("Critic_inputs_" + tag, inputs)
+            action = tflearn.input_data(shape=[None, self.a_dim], name="Action")
+            tf.add_to_collection("Critic_action_" + tag, action)
+            net = tflearn.fully_connected(inputs, 400)
+            net = tflearn.layers.normalization.batch_normalization(net)
+            net = tflearn.activations.relu(net)
 
-        # Add the action tensor in the 2nd hidden layer
-        # Use two temp layers to get the corresponding weights and biases
-        t1 = tflearn.fully_connected(net, 300)
-        t2 = tflearn.fully_connected(action, 300)
+            #net = tf.contrib.layers.fully_connected(inputs, 400, normalizer=tf.nn.batch_normalization)
 
-        net = tflearn.activation(
-            tf.matmul(net, t1.W) + tf.matmul(action, t2.W) + t2.b, activation='relu')
+            # Add the action tensor in the 2nd hidden layer
+            # Use two temp layers to get the corresponding weights and biases
+            t1 = tflearn.fully_connected(net, 300)
+            t2 = tflearn.fully_connected(action, 300)
 
-        # linear layer connected to 1 output representing Q(s,a)
-        # Weights are init to Uniform[-3e-3, 3e-3]
-        w_init = tflearn.initializations.uniform(minval=-0.003, maxval=0.003)
-        out = tflearn.fully_connected(net, 1, weights_init=w_init)
-        return inputs, action, out
+            net = tflearn.activation(
+                tf.matmul(net, t1.W) + tf.matmul(action, t2.W) + t2.b, activation='relu')
+
+            # linear layer connected to 1 output representing Q(s,a)
+            # Weights are init to Uniform[-3e-3, 3e-3]
+            w_init = tflearn.initializations.uniform(minval=-0.003, maxval=0.003)
+            out = tflearn.fully_connected(net, 1, weights_init=w_init)
+            tf.add_to_collection("Critic_out_" + tag, out)
+            return inputs, action, out
 
     def train(self, inputs, action, predicted_q_value):
         return self.sess.run([self.out, self.optimize], feed_dict={
@@ -318,6 +366,8 @@ def train(sess, env, args, actor, critic, actor_noise):
                 # Update the actor policy using the sampled gradient
                 a_outs = actor.predict(s_batch)
                 grads = critic.action_gradients(s_batch, a_outs)
+
+
                 actor.train(s_batch, grads[0])
 
                 # Update target networks
@@ -342,13 +392,29 @@ def train(sess, env, args, actor, critic, actor_noise):
                 break
 
 class DDPG_Learner(QLearn):
-    def __init__(self, actions, gamma, reward_function, action_dim, action_bound, state_dim, minibatch_size=64, graph=tf.get_default_graph()):
+    def __init__(self, actions, gamma, reward_function, action_dim, action_bound, state_dim, default_file_name, save_dir="./", minibatch_size=64, graph=tf.get_default_graph(), save=True, load=True, save_frequency=100):
         self.gamma = gamma
         self.actions = actions
         self.reward_function = reward_function
+        self.file_name = default_file_name
+        self.trained_epochs = 0
         self.graph = graph
+        self.load = load
+        self.save = save
+        self.save_frequency = save_frequency
+        self.save_dir = save_dir
         with self.graph.as_default():
             self.sess = tf.Session(graph=graph)
+            if self.load == True:
+                try:
+                    self.saver = tf.train.import_meta_graph(save_dir + self.file_name + ".meta")
+                except:
+                    self.load = False
+
+            if self.load == True:
+                print "Restoring from " + self.save_dir + self.file_name
+                self.saver.restore(self.sess, tf.train.latest_checkpoint(save_dir))
+
             self.actor = ActorNetwork(sess=self.sess, state_dim=state_dim, action_dim=action_dim, 
                                 action_bound=action_bound, learning_rate=0.0001, tau=0.0001, 
                                 batch_size=minibatch_size)
@@ -358,7 +424,16 @@ class DDPG_Learner(QLearn):
             self.buffer = ReplayBuffer()
             self.actor_noise = OrnsteinUhlenbeckActionNoise(mu=np.zeros(action_dim))
             self.minibatch_size = minibatch_size
-            self.sess.run(tf.global_variables_initializer())
+
+            
+            
+            if self.load == False:
+                init_op = tf.global_variables_initializer()
+                self.sess.run(init_op)
+                
+            if self.load == False and self.save == True:
+                self.saver = tf.train.Saver()
+                
 
             self.actor.update_target_network()
             self.critic.update_target_network()
@@ -400,11 +475,15 @@ class DDPG_Learner(QLearn):
             # Update the actor policy using the sampled gradient
             a_outs = self.actor.predict(s_batch)
             grads = self.critic.action_gradients(s_batch, a_outs)
+            
             self.actor.train(s_batch, grads[0])
 
             # Update target networks
             self.actor.update_target_network()
             self.critic.update_target_network()
+
+            
+            
 
     def choose_action_egreedy(self, state, return_q=False):
         return self.choose_action(state, return_q=return_q)
@@ -418,6 +497,13 @@ class DDPG_Learner(QLearn):
         self.buffer.add(np.reshape(state1, (self.actor.s_dim,)), np.reshape(action1, (self.actor.a_dim,)), reward_val,
                               done, np.reshape(state2, (self.actor.s_dim,)))
         self.learnQ(state1, action1, reward_val, reward_val)
+        if (done):
+            self.trained_epochs += 1
+
+            if (self.trained_epochs % self.save_frequency == 0 and self.save == True):
+                print "Saving file " + self.file_name + " to " + self.save_dir + " directory"
+                self.saver.save(self.sess, self.save_dir + self.file_name)
+
 
     def train(self, start_state, environment, max_iter=None,
               state_function=lambda results: results[0],
@@ -447,7 +533,7 @@ class DDPG_Learner(QLearn):
             done = done_function(results)
 
             self.learn(state, action, results, state2, done)
-            
+
             return state2, done
     
 """

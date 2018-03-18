@@ -4,19 +4,21 @@ import tensorflow as tf
 from .ddpg import DDPG_Learner
 
 class MultiDDPG(object):
-    def __init__(self, actions, gamma, reward_functions, action_dim,action_bound, state_dim, minibatch_size=64, include_sum=False):
+    def __init__(self, actions, gamma, reward_functions, action_dim, action_bound, state_dim, minibatch_size=64, include_sum=False):
         self._gamma = gamma
         self.actions = actions
         self.graphs = []
         self.ddpglearners = []
+        i = 0
         for r in reward_functions:
             g = tf.Graph()
             self.graphs.append(g)
-            self.ddpglearners.append(DDPG_Learner(actions, gamma, r, action_dim, action_bound, state_dim, minibatch_size, graph=g))
+            self.ddpglearners.append(DDPG_Learner(actions, gamma, r, action_dim, action_bound, state_dim, default_file_name="learner_" + str(i), save_dir="/home/parallels/Documents/", minibatch_size=minibatch_size, graph=g, load=True))
+            i += 1
         if include_sum:
             g = tf.Graph()
             self.graphs.append(g)
-            self.ddpglearners.append(DDPG_Learner(actions, gamma, lambda x: sum([r(x) for r in reward_functions]), action_dim, action_bound, state_dim, minibatch_size, graph=g))
+            self.ddpglearners.append(DDPG_Learner(actions, gamma, lambda x: sum([r(x) for r in reward_functions]), action_dim, action_bound, state_dim, default_file_name="learner_" + str(i), save_dir="/home/parallels/Documents/", minibatch_size=minibatch_size, graph=g, load=True))
         self.nrewards = len(self.ddpglearners)
 
     @property
@@ -33,9 +35,9 @@ class MultiDDPG(object):
     def getQ(self, state, action):
         return [ql.getQ(state, action) for ql in self.ddpglearners]
 
-    def learn(self, state1, action1, results, state2):
+    def learn(self, state1, action1, results, state2, done):
         for i in range(self.nrewards):
-            self.ddpglearners[i].learn(state1, action1, results, state2)
+            self.ddpglearners[i].learn(state1, action1, results, state2, done)
     
     def choose_action_random(self, state):
         return random.choice(self.filter(state))
@@ -72,11 +74,11 @@ class MultiDDPG(object):
         # Get state2
         state2 = state_function(results)
 
-        # Call learn
-        self.learn(state, action, results, state2)
-
         # Evaluate doneness
         done = done_function(results)
+
+        # Call learn
+        self.learn(state, action, results, state2, done)
 
         # Return new state
         return state2, done

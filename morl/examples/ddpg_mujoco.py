@@ -34,7 +34,7 @@ class MujocoConfig(MultiLearnEnvironment):
 
 def Run_Example():
     minibatch_size = 64
-    pc = MujocoConfig(render=True)
+    pc = MujocoConfig(render=False)
 
     rand_seed = 1234
 
