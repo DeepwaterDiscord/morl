@@ -1,10 +1,10 @@
-from morl.run.MORLEnvironment import MORLEnvironment
+from morl import SingleLearnEnvironment
 from morl.learning.sequential.multilearn import MultiLearn
 from morl.learning.sequential.qlearn import QLearn
 import gym
 import sys
 
-class FrozenLakeConfig(MORLEnvironment):
+class FrozenLakeConfig(SingleLearnEnvironment):
     def __init__(self):
         self.env = gym.make("FrozenLake-v0")
         super(FrozenLakeConfig, self).__init__(learner_klass=QLearn, n_learners=1)
@@ -25,8 +25,3 @@ class FrozenLakeConfig(MORLEnvironment):
 
     def states(self):
         return range(self.env.observation_space.n)
-
-def Run_Example():
-    flc = FrozenLakeConfig()
-    sys.stdout.write(str(flc.learner()))
-    flc.run(num_epochs=2000, num_tests=50, test_length=100)

@@ -7,13 +7,14 @@ setup(name="morl",
       author="DeepwaterDiscord",
       author_email="deepwater.discord@gmail.com",
       license="MIT",
-      packages=["morl"],
+      packages=["morl", "morlgui"],
       install_requires=[
           'matplotlib',
           'numpy',
           'pandas',
           'pyspark',
-          'tflearn'
+          'tflearn',
+          'django'
       ],
       dependency_links=["https://github.com/openai/gym/tarball/master"],
       zip_safe=False)

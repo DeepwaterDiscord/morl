@@ -3,6 +3,7 @@ import pickle
 import datetime
 from ..learning.sequential.qlearn import QLearn
 from ..learning.sequential.multilearn import MultiLearn
+import matplotlib as plt
 
 class MORLEnvironment(object):
     def __init__(self, learner_klass, n_learners=0, epsilon_start=0.1, alpha_start=0.9, gamma_start=0.9, doprint=True):
@@ -58,7 +59,7 @@ class MORLEnvironment(object):
     def learner(self):
         return self.learner_obj
 
-    def run(self, num_epochs, num_tests, test_length):
+    def run(self, num_epochs, num_tests, test_length, plot_filename=None):
         learner = self.learner()
         reward_per_epoch = []
     
@@ -90,3 +91,10 @@ class MORLEnvironment(object):
                         % (epoch+1, epoch_reward))
     
             reward_per_epoch.append(epoch_reward/num_tests)
+
+            if plot_filename:
+                plt.plot(range(num_epochs), reward_per_epoch)
+                plt.savefig(plot_filename)
+                plt.cla()
+                plt.clf()
+                plt.close()

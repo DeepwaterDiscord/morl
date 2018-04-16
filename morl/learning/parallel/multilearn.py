@@ -1,8 +1,12 @@
 import random
 from ..sequential.multilearn import MultiLearn
-from ...config import Config
+#from ...config import Config
 from ..sequential.qlearn import QLearn
 from pyspark import SparkContext
+
+class Config(object):
+    SPARK_MASTER = "localhost"
+    SPARK_APP_NAME = "morl"
 
 class MultiLearnP(MultiLearn):
     def __init__(self, actions, epsilon, alpha, gamma, reward_functions):
