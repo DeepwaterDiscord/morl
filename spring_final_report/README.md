@@ -38,15 +38,19 @@ Next, we hope to test our approach using the publicly available <a href="https:/
 Finally, we hope to explore applications to other datasets that would demonstrate real-world benefits, as time permits.
 
 ## Test Plan and Results <a name="TestPlan"></a>
-[Link To Test Plan](<https://github.com/DeepwaterDiscord/morl/blob/master/essays/Test%20Plan%20and%20Results.pdf>)
+[Link to Test Plan](<https://github.com/DeepwaterDiscord/morl/blob/master/essays/Test%20Plan%20and%20Results.pdf>)
+
+## User Manual <a name="UserManual"></a>
+
+## FAQ <a name="FAQ"></a>
 
 ## Final Presentation <a name="Slideshow"></a>
 
-[MORL Presentation](https://github.com/DeepwaterDiscord/morl/blob/master/essays/MORL%20Final%20Presentation.pdf)
+[Link to MORL Presentation](https://github.com/DeepwaterDiscord/morl/blob/master/essays/MORL%20Final%20Presentation.pdf)
 
 ## Final Poster <a name="Poster"></a>
 
-[Final Poster](https://github.com/DeepwaterDiscord/morl/blob/master/essays/MORL%20Poster.pdf)
+[Link to Final Poster](https://github.com/DeepwaterDiscord/morl/blob/master/essays/MORL%20Poster.pdf)
 
 ## Initial Self-Assessment Essays <a name="InitialSelfAssessments"></a>
 
@@ -56,6 +60,8 @@ Finally, we hope to explore applications to other datasets that would demonstrat
 
 [Greer](https://github.com/DeepwaterDiscord/morl/blob/master/essays/Final%20Assessment%20-%20Greer.pdf)
 
+## Hours Summmary <a name="HoursSummary></a>
+  
 ## Budget <a name="Budget"></a>
 
 There have been no expenses to date and we do not expect any.
