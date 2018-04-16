@@ -40,55 +40,6 @@ Finally, we hope to explore applications to other datasets that would demonstrat
 ## Test Plan and Results <a name="TestPlan"></a>
 [Link To Test Plan](<https://github.com/DeepwaterDiscord/morl/blob/master/essays/Test%20Plan%20and%20Results.pdf>)
 
-## Task List <a name="Tasks"></a>
-
-| Task Description                                                          | Estimated Time (days for one person) | Dependencies | Frazier's Effort | Jeremy's Effort | Optional? | 
-|---------------------------------------------------------------------------|--------------------------------------|--------------|------------------|-----------------|-----------| 
-| Research potential Filter Methods for use in reinforcement learning       | 7                                    |              | 40%              | 60%             | No        | 
-| Find appropriate Python libraries for use with filter methods             | 1                                    | 1            | 50%              | 50%             | No        | 
-| Research best practices for reinforcement learning in Tensor Flow         | 7                                    |              | 60%              | 40%             | No        | 
-| Experiment with tensorflow, RL, and OpenAI Gym in Python                  | 14                                   | 3            | 50%              | 50%             | No        | 
-| Research best practices for using RL on different problems | 1                                    |              | 50%              | 50%             | No        | 
-| Locate Python libraries for use in RL              | 1                                    | 5            | 50%              | 50%             | No        | 
-| Develop policy generation algorithm using filter methods                  | 14                                   | 1, 2         | 50%              | 50%             | No        | 
-| Design efficient RL system in Tensorflow using current best-practices     | 14                                   | 1, 2, 3, 4   | 50%              | 50%             | No        | 
-| Combine filter methods with RL in policy generation                        | 14                                   | 7, 6         | 50%              | 50%             | Yes       | 
-| Integrate policy generation workflow into RL Tensorflow system            | 4                                    | 7, 9         | 50%              | 50%             | No        | 
-| Develop CLI Tool                                    | 4                                    | 10           | 50%              | 50%             | No        | 
-| Develop UI Tool                                     | 14                                   | 10           | 50%              | 50%             | Yes       | 
-| Test implementation on OpenAI MuJoCo Gym         | 7                                    | 11           | 50%              | 50%             | No        | 
-| Test implementation Bioinformatics Data       | 7                                    | 13           | 100%             | 0%              | Yes       | 
-| Test implementation on Crime Rate Data           | 7                                    | 14           | 0%               | 100%            | Yes       | 
-| Design Visual Aids for Presentation                                       | 14                                   | 13, 14?, 15? | 50%              | 50%             | No        | 
-| Write Paper                                                               | 14                                   | 16           | 50%              | 50%             | Yes       | 
-
-
-## Timeline <a name="Timeline"></a>
-
-| Task Id | Task Description                                                          | Start Date | End Date | 
-|---------|---------------------------------------------------------------------------|------------|----------| 
-| 1       | Research potential Filter Methods for use in reinforcement learning       | 12/1/17    | 12/5/17  | 
-| 2       | Find appropriate Python libraries for use with filter methods             | 12/5/17    | 12/6/17  | 
-| 3       | Research best practices for reinforcement learning in Tensor Flow         | 12/6/17    | 12/10/17 | 
-| 4       | Experiment with tensorflow, RL, and OpenAI Gym in Python                  | 12/10/17   | 12/17/17 | 
-| 5       | Research best practices for using RL on different problems | 12/17/17   | 12/18/17 | 
-| 6       | Locate Python libraries for use in RL              | 12/18/17   | 12/19/17 | 
-| 7       | Develop policy generation algorithm using filter methods                   | 1/2/18     | 1/9/18   | 
-| 8       | Design efficient RL system in Tensorflow using current best-practices     | 1/9/18     | 1/16/18  | 
-| 9       | Combine filter methods with RL in policy generation                        | 1/16/18    | 1/23/18  | 
-| 10      | Integrate policy generation workflow into RL Tensorflow system            | 1/23/18    | 1/25/18  | 
-| 11      | Develop CLI Tool                                    | 1/25/18    | 1/27/18  | 
-| 12      | Develop UI Tool                                     | 1/27/18    | 2/3/18   | 
-| 13      | Test implementation on OpenAI MuJoCo Gym         | 2/3/18     | 2/7/18   | 
-| 14      | Test implementation on Bioinformatics Data       | 2/7/18     | 2/11/18  | 
-| 15      | Test implementation on Crime Rate Data           | 2/11/18    | 2/15/18  | 
-| 16      | Design Visual Aids for Presentation                                       | 2/15/18    | 2/22/18  | 
-| 17      | Write Paper                                                               | 2/22/18    | 3/1/18   | 
-
-## Effort Matrix <a name="Effort"></a>
-
-![Effort Graph](https://github.com/DeepwaterDiscord/morl/blob/master/design_diagrams/morl_effort_graph.png)
-
 ## Final Presentation <a name="Slideshow"></a>
 
 [MORL Presentation](https://github.com/DeepwaterDiscord/morl/blob/master/essays/MORL%20Final%20Presentation.pdf)
