@@ -2,6 +2,7 @@ import random
 import numpy as np
 import tensorflow as tf
 from .ddpg import DDPG_Learner
+import os
 
 class MultiDDPG(object):
     def __init__(self, actions, gamma, reward_functions, action_dim, action_bound, state_dim, minibatch_size=64, include_sum=False):
@@ -13,12 +14,12 @@ class MultiDDPG(object):
         for r in reward_functions:
             g = tf.Graph()
             self.graphs.append(g)
-            self.ddpglearners.append(DDPG_Learner(actions, gamma, r, action_dim, action_bound, state_dim, default_file_name="learner_" + str(i), save_dir="/home/parallels/Documents/", minibatch_size=minibatch_size, graph=g, load=True))
+            self.ddpglearners.append(DDPG_Learner(actions, gamma, r, action_dim, action_bound, state_dim, default_file_name="learner_" + str(i), save_dir=os.environ.get("MORL_SAVE_DIR",os.getcwd()), minibatch_size=minibatch_size, graph=g, load=True))
             i += 1
         if include_sum:
             g = tf.Graph()
             self.graphs.append(g)
-            self.ddpglearners.append(DDPG_Learner(actions, gamma, lambda x: sum([r(x) for r in reward_functions]), action_dim, action_bound, state_dim, default_file_name="learner_" + str(i), save_dir="/home/parallels/Documents/", minibatch_size=minibatch_size, graph=g, load=True))
+            self.ddpglearners.append(DDPG_Learner(actions, gamma, lambda x: sum([r(x) for r in reward_functions]), action_dim, action_bound, state_dim, default_file_name="learner_" + str(i), save_dir=os.environ.get("MORL_SAVE_DIR",os.getcwd()), minibatch_size=minibatch_size, graph=g, load=True))
         self.nrewards = len(self.ddpglearners)
 
     @property
