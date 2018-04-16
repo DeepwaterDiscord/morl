@@ -60,7 +60,7 @@ Finally, we hope to explore applications to other datasets that would demonstrat
 
 [Greer](https://github.com/DeepwaterDiscord/morl/blob/master/essays/Final%20Assessment%20-%20Greer.pdf)
 
-## Hours Summmary <a name="HoursSummary></a>
+## Hours Summmary <a name="Hours"></a>
   
 ## Budget <a name="Budget"></a>
 
