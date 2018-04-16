@@ -18,7 +18,7 @@
 
 ## Abstract <a name="Abstract"></a>
 
-Reinforcement Learning involves learning a task through feedback based on its performance and can be expanded to include multiple measures of performance, requiring Multi-Objective Optimization. We seek to find a novel multi-objective optimization method for use in reinforcement learning. Current methods involve linear combinations of reward terms, but balancing their weights has been difficult. Instead, we plan to use Filter Methods as an alternative method of multi-objective optimization. We will test our filter method on OpenAI's MuJoCo Gym and compare our results to those using linear combination for multi-objective optimization. We will also examine alternative methods of feature selection, such as genetic algorithms. Finally, we hope to show generality and demonstrate real-world benefits by applying our work to other datasets.
+Reinforcement Learning involves learning a task through feedback based on its performance and can be expanded to include multiple measures of performance, requiring Multi-Objective Optimization. We seek to find a novel multi-objective optimization method for use in reinforcement learning. Current methods involve linear combinations of reward terms, but balancing their weights has been difficult. Instead, we plan to use Filter Methods as an alternative method of multi-objective optimization. We will test our filter method on OpenAI's MuJoCo Gym and compare our results to those using linear combination for multi-objective optimization. Finally, we hope to show generality and demonstrate real-world benefits by applying our work to other datasets.
 
 ## Description <a name="Description"></a>
 
@@ -35,15 +35,15 @@ In addition, there are many other search or optimization methods which could be 
 #### Our Approach
 
 Our plan is to explore the use of filter methods for multi-objective optimization and reinforcement learning.
-In addition, we will explore other areas of AI, particularly Genetic Programming, to find new methods of feature selection.
-Next, we hope to test both of these using the publicly available <a href="https://gym.openai.com/envs#mujoco">OpenAI Gym MuJoCo environments</a>.
+We plan to use Pareto filters to enhance the construction of multi-objective policies.
+Next, we hope to test our approach using the publicly available <a href="https://gym.openai.com/envs#mujoco">OpenAI Gym environments</a>.
 Finally, we hope to explore applications to other datasets that would demonstrate real-world benefits, as time permits.
 
 
 ## User Stories <a name="UserStories"></a>
 
 As a **Data Scientist**,<br>
-I want to **enhance feature selection**<br>
+I want to **enhance multi-objective policy generation**<br>
 So that I can **increase the accuracy of my machine learning models.**
 
 As a **Robotics Engineer**,<br>
@@ -56,17 +56,17 @@ So that I can **extract more information from my data.**
 
 ## Design Diagrams <a name="DesignDiagrams"></a>
 
-![Design Diagram 1](https://github.com/DeepwaterDiscord/morl/blob/master/design_diagrams/MORL-UseCase-D0.png)
+~~![Design Diagram 1](https://github.com/DeepwaterDiscord/morl/blob/master/design_diagrams/MORL-UseCase-D0.png)
 
-Above shows a high-level use case model where the user (in this case a Researcher/Engineer) requests learning for some Data object, and this Data is fed through the MORL system, which uses feature selection and uses reinforcement learning on said features to get a result.
+~~Above shows a high-level use case model where the user (in this case a Researcher/Engineer) requests learning for some Data object, and this Data is fed through the MORL system, which uses reinforcement learning in combination with filter methods to get a result.~~
 
-![Design Diagram 2](https://github.com/DeepwaterDiscord/morl/blob/master/design_diagrams/MORL-D1.png)
+~~![Design Diagram 2](https://github.com/DeepwaterDiscord/morl/blob/master/design_diagrams/MORL-D1.png)
 
-Above shows a detailed view of the MORL system which separates out Feature Selection and Reinforcement Learning into their separate components. 
+~~Above shows a detailed view of the MORL system which separates out Feature Selection and Reinforcement Learning into their separate components. ~~
 
-![Design Diagram 3](https://github.com/DeepwaterDiscord/morl/blob/master/design_diagrams/MORL-D2.png)
+~~![Design Diagram 3](https://github.com/DeepwaterDiscord/morl/blob/master/design_diagrams/MORL-D2.png)
 
-Above shows an in-depth detailed view of the MORL system which highlights some specific implementation-based details for our system
+~~Above shows an in-depth detailed view of the MORL system which highlights some specific implementation-based details for our system
 
 ## Task List <a name="Tasks"></a>
 
@@ -76,17 +76,17 @@ Above shows an in-depth detailed view of the MORL system which highlights some s
 | Find appropriate Python libraries for use with filter methods             | 1                                    | 1            | 50%              | 50%             | No        | 
 | Research best practices for reinforcement learning in Tensor Flow         | 7                                    |              | 60%              | 40%             | No        | 
 | Experiment with tensorflow, RL, and OpenAI Gym in Python                  | 14                                   | 3            | 50%              | 50%             | No        | 
-| Research best practices for using Genetic Algorithms in feature selection | 1                                    |              | 50%              | 50%             | No        | 
-| Locate fast GA Python libraries for use in feature selection              | 1                                    | 5            | 50%              | 50%             | No        | 
-| Develop feature selection algorithm using filter methods                  | 14                                   | 1, 2         | 50%              | 50%             | No        | 
+| Research best practices for using RL on different problems | 1                                    |              | 50%              | 50%             | No        | 
+| Locate Python libraries for use in RL              | 1                                    | 5            | 50%              | 50%             | No        | 
+| Develop policy generation algorithm using filter methods                  | 14                                   | 1, 2         | 50%              | 50%             | No        | 
 | Design efficient RL system in Tensorflow using current best-practices     | 14                                   | 1, 2, 3, 4   | 50%              | 50%             | No        | 
-| Combine filter methods and GA in feature selection                        | 14                                   | 7, 6         | 50%              | 50%             | Yes       | 
-| Integrate feature selection workflow into RL Tensorflow system            | 4                                    | 7, 9         | 50%              | 50%             | No        | 
-| Develop CLI Tool for Feature Selection                                    | 4                                    | 10           | 50%              | 50%             | No        | 
-| Develop UI Tool for Feature Selection                                     | 14                                   | 10           | 50%              | 50%             | Yes       | 
-| Test feature selection and RL implementation on OpenAI MuJoCo Gym         | 7                                    | 11           | 50%              | 50%             | No        | 
-| Test feature selection and RL implementation on Bioinformatics Data       | 7                                    | 13           | 100%             | 0%              | Yes       | 
-| Test feature selection and RL implementation on Crime Rate Data           | 7                                    | 14           | 0%               | 100%            | Yes       | 
+| Combine filter methods with RL in policy generation                        | 14                                   | 7, 6         | 50%              | 50%             | Yes       | 
+| Integrate policy generation workflow into RL Tensorflow system            | 4                                    | 7, 9         | 50%              | 50%             | No        | 
+| Develop CLI Tool                                    | 4                                    | 10           | 50%              | 50%             | No        | 
+| Develop UI Tool                                     | 14                                   | 10           | 50%              | 50%             | Yes       | 
+| Test implementation on OpenAI MuJoCo Gym         | 7                                    | 11           | 50%              | 50%             | No        | 
+| Test implementation Bioinformatics Data       | 7                                    | 13           | 100%             | 0%              | Yes       | 
+| Test implementation on Crime Rate Data           | 7                                    | 14           | 0%               | 100%            | Yes       | 
 | Design Visual Aids for Presentation                                       | 14                                   | 13, 14?, 15? | 50%              | 50%             | No        | 
 | Write Paper                                                               | 14                                   | 16           | 50%              | 50%             | Yes       | 
 
@@ -99,17 +99,17 @@ Above shows an in-depth detailed view of the MORL system which highlights some s
 | 2       | Find appropriate Python libraries for use with filter methods             | 12/5/17    | 12/6/17  | 
 | 3       | Research best practices for reinforcement learning in Tensor Flow         | 12/6/17    | 12/10/17 | 
 | 4       | Experiment with tensorflow, RL, and OpenAI Gym in Python                  | 12/10/17   | 12/17/17 | 
-| 5       | Research best practices for using Genetic Algorithms in feature selection | 12/17/17   | 12/18/17 | 
-| 6       | Locate fast GA Python libraries for use in feature selection              | 12/18/17   | 12/19/17 | 
-| 7       | Develop feature selection algorithm using filter methods                  | 1/2/18     | 1/9/18   | 
+| 5       | Research best practices for using RL on different problems | 12/17/17   | 12/18/17 | 
+| 6       | Locate Python libraries for use in RL              | 12/18/17   | 12/19/17 | 
+| 7       | Develop policy generation algorithm using filter methods                   | 1/2/18     | 1/9/18   | 
 | 8       | Design efficient RL system in Tensorflow using current best-practices     | 1/9/18     | 1/16/18  | 
-| 9       | Combine filter methods and GA in feature selection                        | 1/16/18    | 1/23/18  | 
-| 10      | Integrate feature selection workflow into RL Tensorflow system            | 1/23/18    | 1/25/18  | 
-| 11      | Develop CLI Tool for Feature Selection                                    | 1/25/18    | 1/27/18  | 
-| 12      | Develop UI Tool for Feature Selection                                     | 1/27/18    | 2/3/18   | 
-| 13      | Test feature selection and RL implementation on OpenAI MuJoCo Gym         | 2/3/18     | 2/7/18   | 
-| 14      | Test feature selection and RL implementation on Bioinformatics Data       | 2/7/18     | 2/11/18  | 
-| 15      | Test feature selection and RL implementation on Crime Rate Data           | 2/11/18    | 2/15/18  | 
+| 9       | Combine filter methods with RL in policy generation                        | 1/16/18    | 1/23/18  | 
+| 10      | Integrate policy generation workflow into RL Tensorflow system            | 1/23/18    | 1/25/18  | 
+| 11      | Develop CLI Tool                                    | 1/25/18    | 1/27/18  | 
+| 12      | Develop UI Tool                                     | 1/27/18    | 2/3/18   | 
+| 13      | Test implementation on OpenAI MuJoCo Gym         | 2/3/18     | 2/7/18   | 
+| 14      | Test implementation on Bioinformatics Data       | 2/7/18     | 2/11/18  | 
+| 15      | Test implementation on Crime Rate Data           | 2/11/18    | 2/15/18  | 
 | 16      | Design Visual Aids for Presentation                                       | 2/15/18    | 2/22/18  | 
 | 17      | Write Paper                                                               | 2/22/18    | 3/1/18   | 
 
@@ -168,7 +168,7 @@ professionals and researchers could use our tool to advance the current state of
 medicine. It could also be used by bioinformaticians outside of the scope of personalized
 medicine, and we hope to present an example of such use in our testing. Additionally, there has
 been huge interest in deep learning from the automotive and robotics industries. Our
-optimizations of feature selection for multi-objective reinforcement learning could aid in the
+optimizations of policy generation for multi-objective reinforcement learning could aid in the
 development of self-driving cars, autonomous robotic assistants, and other innovative
 technologies. While our tool will primarily improve the quality of research, the research that
 uses our tool could have a major impact on quality of life for everyone.
@@ -192,6 +192,8 @@ important step in our initial design.
 [![MORL Presentation](https://img.youtube.com/vi/0MXuCKj4gsQ/0.jpg?)](https://youtu.be/0MXuCKj4gsQ)
 
 ## Self-Assessment Essays <a name="SelfAssessments"></a>
+
+>>TO DO<<
 
 ## Professional Biographies <a name="Biographies"></a>
 
