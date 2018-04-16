@@ -40,20 +40,6 @@ Finally, we hope to explore applications to other datasets that would demonstrat
 ## Test Plan and Results <a name="TestPlan"></a>
 [Link To Test Plan](<https://github.com/DeepwaterDiscord/morl/blob/master/essays/Test%20Plan%20and%20Results.pdf>)
 
-## User Stories <a name="UserStories"></a>
-
-As a **Data Scientist**,<br>
-I want to **enhance multi-objective policy generation**<br>
-So that I can **increase the accuracy of my machine learning models.**
-
-As a **Robotics Engineer**,<br>
-I want a **better method of multi-objective Reinforcement Learning**<br>
-So that **my simulated robot's performance improves.**
-
-As a **Researcher**<br>
-I want to **utilize an improved multi-objective reinforcement learning model**<br>
-So that I can **extract more information from my data.**
-
 ## Design Diagrams <a name="DesignDiagrams"></a>
 
 ![Design Diagram 1](https://github.com/DeepwaterDiscord/morl/blob/master/design_diagrams/MORL-UseCase-D0-Final.png)
@@ -116,76 +102,6 @@ Above shows an in-depth detailed view of the MORL system which highlights some s
 ## Effort Matrix <a name="Effort"></a>
 
 ![Effort Graph](https://github.com/DeepwaterDiscord/morl/blob/master/design_diagrams/morl_effort_graph.png)
-
-## ABET Constraints Essays <a name="ABET"></a>
-
-#### Economic Constraints
-
-MORL has financial limitations that are often inherent to any openly publishable research. Given
-our lack of funding and our desire to produce results which are replicable by anyone, we are
-reliant on freely available tools such as Tensorflow, OpenAI Gym, and Python. While using free
-tools limits some of our performance capabilities, the vast support and availability of these tools
-improves its accessibility to others, and we feel this benefit outweighs the loss of limiting
-ourselves to freely available tools. This also enables us to be unrestricted by any potential bias
-of funding from other sources, as we will be receiving no monetary contributions. In addition,
-this frees us from any restrictions in regards to use of physical resources such as computers at
-UC. So long as a computer can install tensorflow and use Python and OpenAI Gym, our work
-should be entirely usable from this computer, thus improving universal accessibility and
-replicability. Thinking beyond constraints and more towards contributions, this tool could be
-used to support economic development, particularly in any economic area which involves
-multi-objective problems, and given the complexity of many economic issues, many of these
-issues could be modeled as multi-objective problems and therefore be used as input into the
-MORL system to find their solutions.
-
-
-#### Professional Constraints
-
-Multi-Objective Reinforcement Learning is a growing subset of Deep Learning which seeks to
-use Reinforcement Learning to solve complex problems in which one wishes to solve for
-multiple objectives. Because of this, our contribution to this area will provide us with an
-improved understanding into this area and providing us with hands-on experience in the areas
-of Deep Learning and Machine Learning. The members of this group have all worked on
-Machine Learning topics to some degree, from Clustering, SVMs, and Decision Trees, to Neural
-Networks, a Deep Learning Seminar, Genetic Algorithms, etc. By working with Reinforcement
-Learning, we seek to extend our knowledge to include a greater domain of Machine Learning
-topics and how we can use the tools within it to solve problems. This project will require us to
-apply all of our previous Machine Learning knowledge, improve it, and widen it. As such, this
-also means that the project will be inherently constrained by our own understanding of this area,
-so it is crucial that we ensure it is as clear as possible. This in turn will improve our knowledge
-and expertise as Computer Scientists and Data Analysts, supporting us in our future work and
-careers. In our effort to publish our work to the Machine Learning community, we will also
-improve our standing as researches in the field.
-
-
-#### Social Constraints
-
-Our project can be used by nonprofit and for profit organizations alike to analyze data and train
-computers to solve problems and make decisions. This can be especially useful to society by
-propelling forward fields that are rich in data, but have high-complexity, multi-objective
-problems. For instance, the upcoming field of personalized medicine often wants to provide
-good information to patients without incurring excessive medical expenses. Medical
-professionals and researchers could use our tool to advance the current state of personalized
-medicine. It could also be used by bioinformaticians outside of the scope of personalized
-medicine, and we hope to present an example of such use in our testing. Additionally, there has
-been huge interest in deep learning from the automotive and robotics industries. Our
-optimizations of policy generation for multi-objective reinforcement learning could aid in the
-development of self-driving cars, autonomous robotic assistants, and other innovative
-technologies. While our tool will primarily improve the quality of research, the research that
-uses our tool could have a major impact on quality of life for everyone.
-
-
-#### Diversity and Cultural Constraints
-With the wide-reaching impact that our tool could have, it is important to consider that people
-from diverse cultures and lifestyles may want to use our tool and incorporate that into its design.
-However, as two white males from Appalachia, it can certainly be a challenge to incorporate
-diversity into our tool. Initially, we will only have one locale, American English for our UI and CLI
-tool; however, with our collective knowledge of Spanish and Mandarin Chinese, we may later
-seek to expand this and incorporate other locales. With the amount of artificial intelligence
-research currently being done in China by Baidu and other companies (Daugherty, Paul, 2017,
-https://www.weforum.org/agenda/2017/06/how-china-became-ai-leader/), there could be a huge
-benefit to the global research community to translating our tool into a Mandarin Chinese
-distribution. Designing our tool to be intuitive and easy to translate into other locales will be an
-important step in our initial design.
 
 ## Slideshow <a name="Slideshow"></a>
 
