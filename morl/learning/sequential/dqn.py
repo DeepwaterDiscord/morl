@@ -306,7 +306,9 @@ class DeepQ:
 
 
 class DQN_Learner(QLearn):
-    def __init__(self, actions, epsilon, alpha, gamma, reward_function, deepQNetwork):
+    def __init__(self, actions, epsilon, alpha, gamma, reward_function, learn_start, memory_size, network_structure):
+        deepQNetwork = DeepQ(network_structure[0], network_structure[-1], memory_size, gamma, alpha, learn_start)
+        deepQNetwork.initNetworks(network_structure[1:-1])
         self.epsilon = epsilon
         self.alpha = alpha
         self.gamma = gamma

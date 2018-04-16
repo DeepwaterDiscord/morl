@@ -53,14 +53,10 @@ class MountainCarConfig(MORLEnvironment):
         return self.states_list
 
 def Run_Example():
-    learnStart = 128
     learningRate = 0.00025
     discountFactor = 0.99
-    memorySize = 1000000
-    deepQ = DeepQ(2, 3, memorySize, discountFactor, learningRate, learnStart)
-    deepQ.initNetworks([30,30])
 
-    learner = DQN_Learner(actions=[0, 1, 2], epsilon=1, alpha=learningRate, gamma=discountFactor, reward_function=lambda x: x[1], deepQNetwork=deepQ)
+    learner = DQN_Learner(actions=[0, 1, 2], epsilon=1, alpha=learningRate, gamma=discountFactor, reward_function=lambda x: x[1], learn_start=128, memory_size=1000000, network_structure=[2, 30, 30, 3])
     mcc = MountainCarConfig(learner=learner, num_bins=1000)
     mcc.run(num_epochs=1000, num_tests=10, test_length=200)
 
