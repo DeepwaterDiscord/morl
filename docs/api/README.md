@@ -29,8 +29,9 @@
 ##### <a name="LearningSequentialDDPG">`morl.learning.sequential.ddpg`</a>
 This file provides all of the classes and functions needed to implement a Deep Deterministic Policy Gradient learner based on our Learner class setup and Patrick Emami's implementation of the algorithm described in [Lillicrap et al.](https://arxiv.org/pdf/1509.02971v2.pdf).  Deep Deterministic Policy Gradients are useful for reinforcement learning problems when the action space and the state space are continuous (as opposed to discrete).  The most notable class in this file is `DDPG_Learner`.
 ```DDPG_Learner(actions, gamma, reward_function, action_dim, action_bound, state_dim, default_file_name, save_dir="./", minibatch_size=64, graph=tf.get_default_graph(), save=True, load=True, save_frequency=100)```
-Parameters:
+
 | Parameter         | Type       | Description                                            |
+|-------------------|------------|--------------------------------------------------------|
 | actions           | `gym.Box`  | Action space from OpenAI Gym                           |
 | gamma             | `float`    | Decay weight for connected utilities                   |
 | reward_function   | `function` | Dynamically pulls reward from environment step results |
@@ -49,15 +50,18 @@ You can use a `DDPG_Learner` in the same way you would use a typical `QLearner`,
 
 ##### <a name="LearningSequentialDDPG">`morl.learning.sequential.dqn`</a>
 This file provides all of the classes and functions needed to implement a Deep Q Network learner based on our Learner class setup and Victor Mayoral Vilches' implementation of the algorithm described in [Mnih et al.](https://web.stanford.edu/class/psych209/Readings/MnihEtAlHassibis15NatureControlDeepRL.pdf).  Deep Q Networks are useful for reinforcement learning problems when the state space are continuous but the action space is discrete.  The most notable class in this file is `DQN_Learner`.
+
 ```DQN_Learner(actions, epsilon, alpha, gamma, reward_function, deepQNetwork)```
-Parameters:
+
 | Parameter         | Type       | Description                                            |
+|-------------------|------------|--------------------------------------------------------|
 | actions           | `list`     | Discrete actions represented as unique objects         |
 | epsilon           | `float`    | Exploration Rate. (Percentage of iterations in which the action will be selected off-policy) |
 | reward_function   | `function` | Dynamically pulls reward from environment step results |
 | learn_start       | `int`      | Learning Delay.  Number of samples for which to wait before learning. |
 | memory_size       | `int`      | Maximum number of samples to keep                      |
-| network_structure | `list`     | Dimensions of the hidden layers for the underlying deep neural network
+| network_structure | `list`     | Dimensions of the layers for the underlying deep neural network. |
+
 You can use a `DQN_Learner` in the same way you would use a typical `QLearner`, except the `DQN_Learner` can handle continuous state  spaces.
 
 ##### <a name="LearningSequentialDDPG">`morl.learning.sequential.multilearn`</a>
