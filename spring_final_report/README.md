@@ -103,9 +103,13 @@ Above shows an in-depth detailed view of the MORL system which highlights some s
 
 ![Effort Graph](https://github.com/DeepwaterDiscord/morl/blob/master/design_diagrams/morl_effort_graph.png)
 
-## Slideshow <a name="Slideshow"></a>
+## Final Presentation <a name="Slideshow"></a>
 
-[![MORL Presentation](https://img.youtube.com/vi/0MXuCKj4gsQ/0.jpg?)](https://youtu.be/0MXuCKj4gsQ)
+[MORL Presentation](https://github.com/DeepwaterDiscord/morl/blob/master/essays/MORL%20Final%20Presentation.pdf)
+
+## Final Poster <a name="Poster"></a>
+
+[Final Poster](https://github.com/DeepwaterDiscord/morl/blob/master/essays/MORL%20Poster.pdf)
 
 ## Self-Assessment Essays <a name="SelfAssessments"></a>
 
