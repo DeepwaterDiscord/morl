@@ -3,18 +3,16 @@
 **Advisor:** Dr. Fred Annexstein
 
 1. [Abstract](#Abstract)
-2. [Project Description](#Description)
-3. [User Stories](#UserStories)
-4. [Design Diagrams](#DesignDiagrams)
-5. [Task List](#Tasks)
-6. [Timeline](#Timeline)
-7. [Effort Matrix](#Effort)
-8. [ABET Constraints Essay](#ABET)
-9. [Slideshow](#Slideshow)
-10. [Self-Assessment Essays](#SelfAssessments)
-11. [Professional Biographies](#Biographies)
-12. [Budget](#Budget)
-14. [Appendix](#Appendix)
+1. [Project Description](#Description)
+1. [Test Plan and Results](#TestPlan)
+1. [User Manual](#UserManual)
+1. [FAQ](#FAQ)
+1. [Final Presentation](#Slideshow)
+1. [Poster](#Poster)
+1. [Initial Self-Assessment Essays](#InitialSelfAssessments)
+1. [Final Self-Assessment Essays](#FinalSelfAssessments)
+1. [Hours Summary](#Hours)
+1. [Appendix](#Appendix)
 
 ## Abstract <a name="Abstract"></a>
 
