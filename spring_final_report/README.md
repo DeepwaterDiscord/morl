@@ -40,20 +40,6 @@ Finally, we hope to explore applications to other datasets that would demonstrat
 ## Test Plan and Results <a name="TestPlan"></a>
 [Link To Test Plan](<https://github.com/DeepwaterDiscord/morl/blob/master/essays/Test%20Plan%20and%20Results.pdf>)
 
-## Design Diagrams <a name="DesignDiagrams"></a>
-
-![Design Diagram 1](https://github.com/DeepwaterDiscord/morl/blob/master/design_diagrams/MORL-UseCase-D0-Final.png)
-
-Above shows a high-level use case model where the user (in this case a Researcher/Engineer) requests learning for some Data object, and this Data is fed through the MORL system, which uses reinforcement learning in combination with filter methods to get a result.
-
-![Design Diagram 2](https://github.com/DeepwaterDiscord/morl/blob/master/design_diagrams/MORL-D1-Final.png)
-
-Above shows a detailed view of the MORL system which separates out Feature Selection and Reinforcement Learning into their separate components. 
-
-![Design Diagram 3](https://github.com/DeepwaterDiscord/morl/blob/master/design_diagrams/MORL-D2-Final.png)
-
-Above shows an in-depth detailed view of the MORL system which highlights some specific implementation-based details for our system
-
 ## Task List <a name="Tasks"></a>
 
 | Task Description                                                          | Estimated Time (days for one person) | Dependencies | Frazier's Effort | Jeremy's Effort | Optional? | 
@@ -135,6 +121,20 @@ There have been no expenses to date and we do not expect any.
 * [SciKitLearn](http://scikit-learn.org/stable/)
 * [Numpy](http://www.numpy.org)
 * [Python](https://www.python.org)
+
+### Design Diagrams <a name="DesignDiagrams"></a>
+
+![Design Diagram 1](https://github.com/DeepwaterDiscord/morl/blob/master/design_diagrams/MORL-UseCase-D0-Final.png)
+
+Above shows a high-level use case model where the user (in this case a Researcher/Engineer) requests learning for some Data object, and this Data is fed through the MORL system, which uses reinforcement learning in combination with filter methods to get a result.
+
+![Design Diagram 2](https://github.com/DeepwaterDiscord/morl/blob/master/design_diagrams/MORL-D1-Final.png)
+
+Above shows a detailed view of the MORL system which goes into the Reinforcement Learning cycle and how our MultiLearn object interacts with it. 
+
+![Design Diagram 3](https://github.com/DeepwaterDiscord/morl/blob/master/design_diagrams/MORL-D2-Final.png)
+
+Above shows an in-depth detailed view of the MORL system which highlights some specific implementation-based details for our system
 
 ### Timetables
 #### Jeremiah Greer
