@@ -111,9 +111,13 @@ Above shows an in-depth detailed view of the MORL system which highlights some s
 
 [Final Poster](https://github.com/DeepwaterDiscord/morl/blob/master/essays/MORL%20Poster.pdf)
 
-## Self-Assessment Essays <a name="SelfAssessments"></a>
+## Initial Self-Assessment Essays <a name="InitialSelfAssessments"></a>
 
->>TO DO<<
+[Greer](https://github.com/DeepwaterDiscord/morl/blob/master/essays/Initial%20Assessment%20-%20Greer.pdf)
+
+## Final Self-Assessment Essays <a name="FinalSelfAssessments"></a>
+
+[Greer](https://github.com/DeepwaterDiscord/morl/blob/master/essays/Final%20Assessment%20-%20Greer.pdf)
 
 ## Budget <a name="Budget"></a>
 
