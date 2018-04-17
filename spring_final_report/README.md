@@ -63,7 +63,17 @@ Finally, we hope to explore applications to other datasets that would demonstrat
 [Greer](https://github.com/DeepwaterDiscord/morl/blob/master/essays/Final%20Assessment%20-%20Greer.pdf)
 
 ## Hours Summary <a name="Hours"></a>
-  
+### Fall Semester
+| Person     | Hours     | Description                                                           |
+|------------|-----------|-----------------------------------------------------------------------|
+| F. Baker   | 45        | Worked with team members on project structuring and planning, including abstract, task list, timeline, etc. In addition, looked into understanding Reinforcement Learning and Filter Methods to be able to successfully implement our plans regarding these concepts into a functional library using modern tools. Researched state-of-the-art reinforcement learning techniques and began experimenting with tensorflow. |
+| J. Greer   | 45        | Worked with team members on project structuring and planning, including abstract, task list, timeline, etc. In addition, looked into understanding Reinforcement Learning and Filter Methods to be able to successfully implement our plans regarding these concepts into a functional library using modern tools. Researched state-of-the-art reinforcement learning techniques and began experimenting with tensorflow. |
+
+### Winter Break
+| Person     | Hours     | Description                                                           |
+|------------|-----------|-----------------------------------------------------------------------|
+| F. Baker   | 80        | Began laying groundwork for class-based system for individual learners as well as MultiLearn, creating the base learner-class system which allows users to implement any type of learner and test them in environments/configurations. Also laid the groundwork for the configuration class, which acts as a wrapper over OpenAI Gym Environments with the ability to customize them or create your own configuration outside the system entirely. Finally, a CLI tool was created to allow for easy testing of systems. |
+| J. Greer   | 80        | Began experimenting with OpenAI Gym and finding modern implementations of advanced Reinforcement Learning models including Deep Q-Networks and Deep Deterministic Policy Gradients Networks. Tested the groundwork class code and connected it to OpenAI Gyms to examine the performance of each method, helping to provide feedback towards the alteration of the base class code to accomodate more complex environments. Also worked to create example configurations using OpenAI Gym to showcase the simplicity of creating a config which abstracts the training process. |
 ## Budget <a name="Budget"></a>
 
 There have been no expenses to date and we do not expect any.
