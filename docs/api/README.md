@@ -33,7 +33,7 @@ This file provides all of the classes and functions needed to implement a Deep D
 | Parameter         | Type       | Description                                            |
 |-------------------|------------|--------------------------------------------------------|
 | actions           | `gym.Box`  | Action space from OpenAI Gym                           |
-| gamma             | `float`    | Decay weight for connected utilities                   |
+| gamma             | `float`    | Discount weight for connected utilities                |
 | reward_function   | `function` | Dynamically pulls reward from environment step results |
 | action_dim        | `np.shape` | Dimensions of the action space                         |
 | action_bound      | `np.array` | Boundaries of each vector of the action space          |
@@ -68,6 +68,7 @@ You can use a `DQN_Learner` in the same way you would use a typical `QLearner`, 
 The `MultiDDPG` class is an adaptation of the `MultiLearn` class for continuous action and state spaces.  It uses `DDPG_Learner` by default as its single learner function instead of `QLearner`.
 
 ```MultiDDPG(actions, gamma, reward_functions, action_dim, action_bound, state_dim, minibatch_size=64, include_sum=False)```
+
 | Parameter         | Type       | Description                                            |
 |-------------------|------------|--------------------------------------------------------|
 | actions           | `gym.Box`     | Continuous action space         |
@@ -83,13 +84,36 @@ The `MultiDDPG` class is an adaptation of the `MultiLearn` class for continuous 
 ##### <a name="LearningSequentialMultilearn">`morl.learning.sequential.multilearn`</a>
 The `MultiLearn` class is the heart of this project.  This class uses multiple learner classes to compute separate utilities for each of the supplied reward functions.  It then uses a Pareto filter to construct a multipolicy, that is, it constructs a policy containing one or more actions for each state that are not dominated by any other action on all reward functions' utilities.  From this multipolicy, actions can be chosen from a variety of manners, with the default being random choice.
 
+```MultiLearn(actions, epsilon, alpha, gamma, reward_functions, default_actions=[], klass=QLearn)```
+| Parameter         | Type       | Description                                            |
+|-------------------|------------|--------------------------------------------------------|
+| actions           | `dict(state: action)`  | Discrete action space         |
+| epsilon           | `float`                | Exploration Rate. (Percentage of iterations in which the action will be selected off-policy) |
+| reward_functions  | `list(function)`       | List of functions to dynamically pull rewards from environment step results |
+| alpha             | `float`                | Learning rate                         |
+| gamma             | `float`                | Discount weight for connected utilities                |
+| default_actions   | `list(actions)`        | List of actions available from any state.  Useful if all states share the same action space. |
+| klass             | `type`                 | Single learner class |
 
 
 ##### <a name="LearningSequentialQlearn">`morl.learning.sequential.qlearn`</a>
 
+`QLearn` is a traditional reinforcement learning algorithm implementation that serves as the default single learner for `MultiLearn`.  
+
+```MultiLearn(actions, epsilon, alpha, gamma, reward_function, default_actions=[])```
+| Parameter         | Type       | Description                                            |
+|-------------------|------------|--------------------------------------------------------|
+| actions           | `dict(state: action)`  | Discrete action space         |
+| epsilon           | `float`                | Exploration Rate. (Percentage of iterations in which the action will be selected off-policy) |
+| reward_function   | `function`             | Functions to dynamically pull rewards from environment step results |
+| alpha             | `float`                | Learning rate                         |
+| gamma             | `float`                | Discount weight for connected utilities                |
+| default_actions   | `list(actions)`        | List of actions available from any state.  Useful if all states share the same action space. |
+| klass             | `type`                 | Single learner class |
 
 #### <a name="LearningParallel">`morl.learning.parallel`</a> | Parallel
 
+**Coming Soon**
 
 ### <a name="Run">`morl.run`</a> | Configuration Class
 
