@@ -54,6 +54,8 @@ Finally, we hope to explore applications to other datasets that would demonstrat
 
 ## Initial Self-Assessment Essays <a name="InitialSelfAssessments"></a>
 
+[Baker](https://github.com/DeepwaterDiscord/morl/blob/master/essays/Initial%20Assessment%20-%20Baker.pdf)
+
 [Greer](https://github.com/DeepwaterDiscord/morl/blob/master/essays/Initial%20Assessment%20-%20Greer.pdf)
 
 ## Final Self-Assessment Essays <a name="FinalSelfAssessments"></a>
