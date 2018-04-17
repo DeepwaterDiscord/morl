@@ -64,9 +64,29 @@ This file provides all of the classes and functions needed to implement a Deep Q
 
 You can use a `DQN_Learner` in the same way you would use a typical `QLearner`, except the `DQN_Learner` can handle continuous state  spaces.
 
-##### <a name="LearningSequentialDDPG">`morl.learning.sequential.multilearn`</a>
+##### <a name="LearningSequentialMultiDDPG">`morl.learning.sequential.multiddpg`</a>
+The `MultiDDPG` class is an adaptation of the `MultiLearn` class for continuous action and state spaces.  It uses `DDPG_Learner` by default as its single learner function instead of `QLearner`.
 
-##### <a name="LearningSequentialDDPG">`morl.learning.sequential.qlearn`</a>
+```MultiDDPG(actions, gamma, reward_functions, action_dim, action_bound, state_dim, minibatch_size=64, include_sum=False)```
+| Parameter         | Type       | Description                                            |
+|-------------------|------------|--------------------------------------------------------|
+| actions           | `gym.Box`     | Continuous action space         |
+| reward_functions   | `list(function)` | List of functions to dynamically pull rewards from environment step results |
+| action_dim        | `np.shape` | Dimensions of the action space                         |
+| action_bound      | `np.array` | Boundaries of each vector of the action space          |
+| state_dim         | `np.shape` | Dimensions of the state space                          |
+| minibatch_size    | `int`      | Size of mini-batch for mini-batch optimization         |
+| include_sum       | `bool`     | Whether or not to include the sum of the rewards as a separate reward function |
+
+`MultiDDPG` behaves like `MultiLearn` except that it can take continuous input and the multipolicy generation chooses the best from each reward function as a simple approximation of the best possible actions.  We use this approximation due to the complexity of exploring a continuous state-action space.
+
+##### <a name="LearningSequentialMultilearn">`morl.learning.sequential.multilearn`</a>
+The `MultiLearn` class is the heart of this project.  This class uses multiple learner classes to compute separate utilities for each of the supplied reward functions.  It then uses a Pareto filter to construct a multipolicy, that is, it constructs a policy containing one or more actions for each state that are not dominated by any other action on all reward functions' utilities.  From this multipolicy, actions can be chosen from a variety of manners, with the default being random choice.
+
+
+
+##### <a name="LearningSequentialQlearn">`morl.learning.sequential.qlearn`</a>
+
 
 #### <a name="LearningParallel">`morl.learning.parallel`</a> | Parallel
 
