@@ -74,6 +74,19 @@ Finally, we hope to explore applications to other datasets that would demonstrat
 |------------|-----------|-----------------------------------------------------------------------|
 | F. Baker   | 80        | Began laying groundwork for class-based system for individual learners as well as MultiLearn, creating the base learner-class system which allows users to implement any type of learner and test them in environments/configurations. Also laid the groundwork for the configuration class, which acts as a wrapper over OpenAI Gym Environments with the ability to customize them or create your own configuration outside the system entirely. Finally, a CLI tool was created to allow for easy testing of systems. |
 | J. Greer   | 80        | Began experimenting with OpenAI Gym and finding modern implementations of advanced Reinforcement Learning models including Deep Q-Networks and Deep Deterministic Policy Gradients Networks. Tested the groundwork class code and connected it to OpenAI Gyms to examine the performance of each method, helping to provide feedback towards the alteration of the base class code to accomodate more complex environments. Also worked to create example configurations using OpenAI Gym to showcase the simplicity of creating a config which abstracts the training process. |
+
+### Spring Semester
+| Person     | Hours     | Description                                                           |
+|------------|-----------|-----------------------------------------------------------------------|
+| F. Baker   | 45        | Continued updating class system for learners and configurations for use with more advanced learners and environments. Worked with teammates to develop test suites, documentation, and set up a laptop to be used as a bulk learner for our more complex training tasks, primarily the humanoid mujoco environment using a DDPG. Finally, worked to develop a poster, presentation, and final report covering our work over the past year. |
+| J. Greer   | 45        | Continued integration testing and tieing in more complex learners and environments to be used with our system. Worked with teammates to develop test suites, documentation, and set up a laptop to be used as a bulk learner for our more complex training tasks, primarily the humanoid mujoco environment using a DDPG. Finally, worked to develop a poster, presentation, and final report covering our work over the past year. |
+
+### Total Hours and Results
+| Person     | Hours     | Description                                                           |
+|------------|-----------|-----------------------------------------------------------------------|
+| F. Baker   | 170       | Developed a system for creating custom learners and configurations to be used for testing and analysis. In addition, we analyzed the effectiveness of using filter methods as a method of multi-objective optimization for reinforcement learning and found that, by using filter methods, we were able to achieve an increased learning rate for base tabular Q-Learning utilizing the OpenAI FrozenLake environment of approximately 1/2 the number of training iterations, and with this we can begin testing other environments to see if these findings hold for other learners and other environments. |
+| J. Greer   | 170       | Developed a system for creating custom learners and configurations to be used for testing and analysis. In addition, we analyzed the effectiveness of using filter methods as a method of multi-objective optimization for reinforcement learning and found that, by using filter methods, we were able to achieve an increased learning rate for base tabular Q-Learning utilizing the OpenAI FrozenLake environment of approximately 1/2 the number of training iterations, and with this we can begin testing other environments to see if these findings hold for other learners and other environments. |
+
 ## Budget <a name="Budget"></a>
 
 There have been no expenses to date and we do not expect any.
@@ -104,44 +117,3 @@ Above shows a detailed view of the MORL system which goes into the Reinforcement
 ![Design Diagram 3](https://github.com/DeepwaterDiscord/morl/blob/master/design_diagrams/MORL-D2-Final.png)
 
 Above shows an in-depth detailed view of the MORL system which highlights some specific implementation-based details for our system
-
-### Timetables
-#### Jeremiah Greer
-
-| Description                                                                 | Date     | Hours |
-|-----------------------------------------------------------------------------|----------|-------|
-| Wrote Professional Biography (Assignment 1)                                 | 8/29/17  | 3     |
-| Discussed project ideas with group members                                  | 9/01/17  | 3     |
-| Created project description (Assignment 2)                                  | 9/10/17  | 3     |
-| Discussed details of project with group members                             | 9/17/17  | 3     |
-| Found relevant libraries and papers for project                             | 9/20/17  | 3     |
-| Wrote self-assessment essay (Assignment 3)                                  | 9/24/17  | 3     |
-| Created user stories and design diagrams  with group members (Assignment 4) | 10/01/17 | 3     |
-| Started discussing project outline and tasks                                | 10/09/17 | 3     |
-| Finalized task list with group (Assignment 5)                               | 10/15/17 | 3     |
-| Finished milestones, timeline, and effort matrix  with group(Assignment 6)  | 10/22/17 | 3     |
-| Wrote ABET Constraint Essay with  group (Assignment 7)                      | 10/29/17 | 3     |
-| Designed and recorded slideshow  presentation with group (Assignment 8)     | 11/5/17  | 3     |
-| Investigated current reinforcement learning techniques                      | 11/12/17 | 3     |
-| Began experimenting with tensorflow                                         | 11/19/17 | 3     |
-| Finished writing fall design report with  group (Assignment 9)              | 11/27/17 | 3     |
-
-#### Frazier Baker
-
-| Description                                                                 | Date     | Hours |
-|-----------------------------------------------------------------------------|----------|-------|
-| Wrote Professional Biography (Assignment 1)                                 | 8/29/17  | 3     |
-| Discussed project ideas with group members                                  | 9/01/17  | 3     |
-| Created project description (Assignment 2)                                  | 9/10/17  | 3     |
-| Discussed details of project with group members                             | 9/17/17  | 3     |
-| Found relevant libraries and papers for project                             | 9/20/17  | 3     |
-| Wrote self-assessment essay (Assignment 3)                                  | 9/24/17  | 3     |
-| Created user stories and design diagrams  with group members (Assignment 4) | 10/01/17 | 3     |
-| Started discussing project outline and tasks                                | 10/09/17 | 3     |
-| Finalized task list with group (Assignment 5)                               | 10/15/17 | 3     |
-| Finished milestones, timeline, and effort matrix  with group(Assignment 6)  | 10/22/17 | 3     |
-| Wrote ABET Constraint Essay with  group (Assignment 7)                      | 10/29/17 | 3     |
-| Designed and recorded slideshow  presentation with group (Assignment 8)     | 11/5/17  | 3     |
-| Investigated current reinforcement learning techniques                      | 11/12/17 | 3     |
-| Set up parallel-capable computational environment                           | 11/19/17 | 3     |
-| Finished writing fall design report with  group (Assignment 9)              | 11/27/17 | 3     |
