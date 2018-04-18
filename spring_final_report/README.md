@@ -43,6 +43,7 @@ Finally, we hope to explore applications to other datasets that would demonstrat
 ## User Manual <a name="UserManual"></a>
 
 [General Documentation](https://github.com/DeepwaterDiscord/morl/docs)
+
 [API Documentation](https://github.com/DeepwaterDiscord/morl/docs/api)
 
 ## FAQ <a name="FAQ"></a>
@@ -54,6 +55,18 @@ Reinforcement learning is a type of machine learning based on states, actions, a
 #### What is multi-objective reinforcement learning?
 
 Multi-objective reinforcement learning is simply a reinforcement learning problem in which there are multiple rewards to be considered.
+
+#### What did this project do with multi-objective reinforcement learning?
+
+We explored a new method for policy generation in multi-objective reinforcement learning.  Typically, reward functions are summarized into a single reward function by means of linear combination.  We decided instead to consider reward functions separately and apply a Pareto filter to the rewards to choose a policy.
+
+#### Why did you choose this project?
+
+We wanted to explore a more research-oriented project in the field of machine learning and contribute to the current state of the field.  We found OpenAI's requests for research and took inspiration from that.
+
+#### Can I use MORL's multilearn on my own projects?
+
+Yes!  We provided a MORLEnvironment class that allows you to set up your own environment, actions, and rewards.  While maintaining full customizability, it attempts to streamline the process of using our work in your own projects.  [See the documentation](#UserManual).
 
 ## Final Presentation <a name="Slideshow"></a>
 
