@@ -42,6 +42,8 @@ Finally, we hope to explore applications to other datasets that would demonstrat
 
 ## User Manual <a name="UserManual"></a>
 
+![Documentation Screenshot](https://github.com/DeepwaterDiscord/morl/raw/master/design_diagrams/morl_docs.png)
+
 [General Documentation](https://github.com/DeepwaterDiscord/morl/tree/master/docs)
 
 [API Documentation](https://github.com/DeepwaterDiscord/morl/tree/master/docs/api)
