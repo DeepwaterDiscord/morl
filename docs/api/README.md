@@ -119,6 +119,20 @@ The `MultiLearn` class is the heart of this project.  This class uses multiple l
 
 ### <a name="Run">`morl.run`</a> | Configuration Class
 
+#### <a name="RunMORLEnvironment">`morl.run.MORLEnvironment`</a> | Config
+`MORLEnvironment` is the configuration class which is capable of acting as a wrapper to OpenAI Gym Environments, while also being able to abstract away the complex instantiation of the learners. It also enables access to various learning hyperparameters and contains the universal run() method which abstracts the learning and printing process of the model to allow one to compare different models. It also contains plotting functionality to provide visual clarity to the learning process over the number of iterations.
+
+```MORLEnvironment(learner_klass, n_learners=0, epsilon_start=0.1, alpha_start=0.9, gamma_start=0.9, doprint=True)```
+
+| Parameter         | Type         | Description                                                                 |
+|-------------------|--------------|-----------------------------------------------------------------------------|
+| learner_klass     | `class type` | Type of learner-class you wish to use, such as `MultiLearn`, `QLearn`, etc. |
+| n_learners        | `int`        | Number of learners (used in Multilearners, others default to 1)             |
+| epsilon_start     | `float`      | Initial value of exploration rate                                           |
+| alpha_start       | `float`      | Initial value of Learning rate                                              |
+| gamma_start       | `float`      | Initial value of discount weight for connected utilities                    |
+| doprint           | `bool`       | Print reward progress to stdout                                             |
+
 ### <a name="Examples">`morl.examples`</a> | Examples
 
 #### <a name="ExamplesDDPGMujoco">`morl.examples.ddpg_mujoco`</a> | DDPG Mujoco
