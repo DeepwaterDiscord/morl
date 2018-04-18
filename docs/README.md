@@ -24,7 +24,7 @@ python -m morl frozenlake multilearn
 This will run the default configuration. To modify configurations or to create your own, refer to the Developer Docs.
 
 ## API Documentation
-If you actually want to use MORL on your own environments/datasets, you will probably want to take a look at our [api documentation](./api).
+If you want to use MORL on your own environments/datasets, you will probably want to take a look at our [api documentation](./api).
 
 ## Graphical User Interface
 Coming soon
