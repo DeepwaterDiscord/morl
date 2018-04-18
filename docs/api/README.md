@@ -119,6 +119,8 @@ The `MultiLearn` class is the heart of this project.  This class uses multiple l
 
 ### <a name="Run">`morl.run`</a> | Configuration Class
 
+MORL was built to be extensible; we want you to be able to use our software and our API.  To simplify that process, we have provided a simple format for you to configure your own reinforcement learning environment and run it using the MORL CLI or MORL Web Server.
+
 #### <a name="RunMORLEnvironment">`morl.run.MORLEnvironment`</a> | Config
 `MORLEnvironment` is the configuration class which is capable of acting as a wrapper to OpenAI Gym Environments, while also being able to abstract away the complex instantiation of the learners. It also enables access to various learning hyperparameters and contains the universal run() method which abstracts the learning and printing process of the model to allow one to compare different models. It also contains plotting functionality to provide visual clarity to the learning process over the number of iterations.
 
