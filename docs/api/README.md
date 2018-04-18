@@ -119,6 +119,8 @@ The `MultiLearn` class is the heart of this project.  This class uses multiple l
 
 ### <a name="Run">`morl.run`</a> | Configuration Class
 
+MORL was built to be extensible; we want you to be able to use our software and our API.  To simplify that process, we have provided a simple format for you to configure your own reinforcement learning environment and run it using the MORL CLI or MORL Web Server.
+
 #### <a name="RunMORLEnvironment">`morl.run.MORLEnvironment`</a> | Config
 `MORLEnvironment` is the configuration class which is capable of acting as a wrapper to OpenAI Gym Environments, while also being able to abstract away the complex instantiation of the learners. It also enables access to various learning hyperparameters and contains the universal run() method which abstracts the learning and printing process of the model to allow one to compare different models. It also contains plotting functionality to provide visual clarity to the learning process over the number of iterations.
 
@@ -134,6 +136,8 @@ The `MultiLearn` class is the heart of this project.  This class uses multiple l
 | doprint           | `bool`       | Print reward progress to stdout                                             |
 
 ### <a name="Examples">`morl.examples`</a> | Examples
+
+MORL comes with numerous examples which we used in testing.  It also comes with some sample configurations for you to use as you model your own MORL configurations.
 
 #### <a name="ExamplesDDPGMujoco">`morl.examples.ddpg_mujoco`</a> | DDPG Mujoco
 This example shows how to use our DDPG version of Multilearn in a sample environment, and also showcases the ability of our system to work in more complex environments, such as the OpenAI Mujoco Humanoid environment.
