@@ -42,9 +42,9 @@ Finally, we hope to explore applications to other datasets that would demonstrat
 
 ## User Manual <a name="UserManual"></a>
 
-[General Documentation](https://github.com/DeepwaterDiscord/morl/docs)
+[General Documentation](https://github.com/DeepwaterDiscord/morl/tree/master/docs)
 
-[API Documentation](https://github.com/DeepwaterDiscord/morl/docs/api)
+[API Documentation](https://github.com/DeepwaterDiscord/morl/tree/master/docs/api)
 
 ## FAQ <a name="FAQ"></a>
 
