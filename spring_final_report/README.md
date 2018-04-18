@@ -42,7 +42,18 @@ Finally, we hope to explore applications to other datasets that would demonstrat
 
 ## User Manual <a name="UserManual"></a>
 
+[General Documentation](https://github.com/DeepwaterDiscord/morl/docs)
+[API Documentation](https://github.com/DeepwaterDiscord/morl/docs/api)
+
 ## FAQ <a name="FAQ"></a>
+
+#### What is reinforcement learning?
+
+Reinforcement learning is a type of machine learning based on states, actions, and rewards.  Essentially, reinforcement learning observes the state of a given environment, performs an action on it, receives a reward (or punishment) for that action in that state, and retains information on that reward for future reference.  As it explores different state-action combinations, it build a policy for how to act in any given state based on scores that it has been generating from the rewards.
+
+#### What is multi-objective reinforcement learning?
+
+Multi-objective reinforcement learning is simply a reinforcement learning problem in which there are multiple rewards to be considered.
 
 ## Final Presentation <a name="Slideshow"></a>
 
@@ -59,6 +70,8 @@ Finally, we hope to explore applications to other datasets that would demonstrat
 [Greer](https://github.com/DeepwaterDiscord/morl/blob/master/essays/Initial%20Assessment%20-%20Greer.pdf)
 
 ## Final Self-Assessment Essays <a name="FinalSelfAssessments"></a>
+
+[Baker](https://github.com/DeepwaterDiscord/morl/blob/master/essays/Final%20Assessment%20-%20Baker.pdf)
 
 [Greer](https://github.com/DeepwaterDiscord/morl/blob/master/essays/Final%20Assessment%20-%20Greer.pdf)
 
