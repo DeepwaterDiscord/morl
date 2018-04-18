@@ -11,7 +11,7 @@
    - [morl.learning.parallel](#LearningParallel)
      - [morl.learning.parallel.multilearn](#LearningParallelMultilearn)
  - [morl.run](#Run)
-   - [morl.run.MORLEnviornment](#RunMORLEnviornment)
+   - [morl.run.MORLEnviornment](#RunMORLEnvironment)
  - [morl.examples](#Examples)
    - [morl.examples.ddpg_mujoco](#ExamplesDDPGMujoco)
    - [morl.examples.ddpg_pendulum](#ExamplesDDPGPendulum)
@@ -24,7 +24,7 @@
 
 ### <a name="Learning">`morl.learning`</a> | Learning
 
-#### <a name="LearningSequential">`morl.learning.sequential`</a> | Sequential
+#### <a name="LearningSequentialDQN">`morl.learning.sequential`</a> | Sequential
 
 ##### <a name="LearningSequentialDDPG">`morl.learning.sequential.ddpg`</a>
 This file provides all of the classes and functions needed to implement a Deep Deterministic Policy Gradient learner based on our Learner class setup and Patrick Emami's implementation of the algorithm described in [Lillicrap et al.](https://arxiv.org/pdf/1509.02971v2.pdf).  Deep Deterministic Policy Gradients are useful for reinforcement learning problems when the action space and the state space are continuous (as opposed to discrete).  The most notable class in this file is `DDPG_Learner`.
@@ -119,8 +119,6 @@ The `MultiLearn` class is the heart of this project.  This class uses multiple l
 
 ### <a name="Run">`morl.run`</a> | Configuration Class
 
-MORL was built to be extensible; we want you to be able to use our software and our API.  To simplify that process, we have provided a simple format for you to configure your own reinforcement learning environment and run it using the MORL CLI or MORL Web Server.
-
 #### <a name="RunMORLEnvironment">`morl.run.MORLEnvironment`</a> | Config
 `MORLEnvironment` is the configuration class which is capable of acting as a wrapper to OpenAI Gym Environments, while also being able to abstract away the complex instantiation of the learners. It also enables access to various learning hyperparameters and contains the universal run() method which abstracts the learning and printing process of the model to allow one to compare different models. It also contains plotting functionality to provide visual clarity to the learning process over the number of iterations.
 
@@ -146,10 +144,10 @@ This example shows how to use a single-learner version of a DDPG (i.e. a normal 
 #### <a name="ExamplesDQNMountaincar">`morl.examples.dqn_mountaincar`</a> | DQN Mountaincar
 This example shows how to use a Deep Q-Network in the OpenAI Mountaincar sample environment.
 
-#### <a name="ExamplesFrozenLakeConfig">`morl.examples.frozenlake_config`</a> | FrozenLake Config
+#### <a name="ExamplesFrozenlakeConfig">`morl.examples.frozenlake_config`</a> | FrozenLake Config
 This example shows how to create your own configuration by wrapping the OpenAI Environment within. Configs help to abstract away the training and iteration code for reinforcement learning, letting you focus on the model and the environment.
 
-#### <a name="ExamplesFrozenLake">`morl.examples.frozenlake`</a> | FrozenLake
+#### <a name="ExamplesFrozenlake">`morl.examples.frozenlake`</a> | FrozenLake
 This example shows how to our use default tabular Q-Learning with a basic environment from OpenAI, the FrozenLake environment. This was used to generate reward-over-time graphs to compare Multilearning with Q-Learning.
 
 #### <a name="ExamplesMountaincar">`morl.examples.mountaincar`</a> | Mountaincar
