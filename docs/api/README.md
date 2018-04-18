@@ -85,6 +85,7 @@ The `MultiDDPG` class is an adaptation of the `MultiLearn` class for continuous 
 The `MultiLearn` class is the heart of this project.  This class uses multiple learner classes to compute separate utilities for each of the supplied reward functions.  It then uses a Pareto filter to construct a multipolicy, that is, it constructs a policy containing one or more actions for each state that are not dominated by any other action on all reward functions' utilities.  From this multipolicy, actions can be chosen from a variety of manners, with the default being random choice.
 
 ```MultiLearn(actions, epsilon, alpha, gamma, reward_functions, default_actions=[], klass=QLearn)```
+
 | Parameter         | Type       | Description                                            |
 |-------------------|------------|--------------------------------------------------------|
 | actions           | `dict(state: action)`  | Discrete action space         |
@@ -101,6 +102,7 @@ The `MultiLearn` class is the heart of this project.  This class uses multiple l
 `QLearn` is a traditional reinforcement learning algorithm implementation that serves as the default single learner for `MultiLearn`.  
 
 ```MultiLearn(actions, epsilon, alpha, gamma, reward_function, default_actions=[])```
+
 | Parameter         | Type       | Description                                            |
 |-------------------|------------|--------------------------------------------------------|
 | actions           | `dict(state: action)`  | Discrete action space         |
