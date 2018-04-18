@@ -24,7 +24,7 @@
 
 ### <a name="Learning">`morl.learning`</a> | Learning
 
-#### <a name="LearningSequentialDQN">`morl.learning.sequential`</a> | Sequential
+#### <a name="LearningSequential">`morl.learning.sequential`</a> | Sequential
 
 ##### <a name="LearningSequentialDDPG">`morl.learning.sequential.ddpg`</a>
 This file provides all of the classes and functions needed to implement a Deep Deterministic Policy Gradient learner based on our Learner class setup and Patrick Emami's implementation of the algorithm described in [Lillicrap et al.](https://arxiv.org/pdf/1509.02971v2.pdf).  Deep Deterministic Policy Gradients are useful for reinforcement learning problems when the action space and the state space are continuous (as opposed to discrete).  The most notable class in this file is `DDPG_Learner`.
@@ -48,7 +48,7 @@ This file provides all of the classes and functions needed to implement a Deep D
 
 You can use a `DDPG_Learner` in the same way you would use a typical `QLearner`, except the `DDPG_Learner` can handle continuous state and action spaces.
 
-##### <a name="LearningSequentialDDPG">`morl.learning.sequential.dqn`</a>
+##### <a name="LearningSequentialDQN">`morl.learning.sequential.dqn`</a>
 This file provides all of the classes and functions needed to implement a Deep Q Network learner based on our Learner class setup and Victor Mayoral Vilches' implementation of the algorithm described in [Mnih et al.](https://web.stanford.edu/class/psych209/Readings/MnihEtAlHassibis15NatureControlDeepRL.pdf).  Deep Q Networks are useful for reinforcement learning problems when the state space are continuous but the action space is discrete.  The most notable class in this file is `DQN_Learner`.
 
 ```DQN_Learner(actions, epsilon, alpha, gamma, reward_function, deepQNetwork)```
@@ -171,4 +171,4 @@ This example shows how to our use default tabular Q-Learning with an environment
    - [morl.learning.parallel](#LearningParallel)
      - [morl.learning.parallel.multilearn](#LearningParallelMultilearn)
  - [morl.run](#Run)
-   - [morl.run.MORLEnviornment](#RunMORLEnviornment)
+   - [morl.run.MORLEnviornment](#RunMORLEnvironment)
