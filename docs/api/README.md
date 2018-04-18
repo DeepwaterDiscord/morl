@@ -121,6 +121,24 @@ The `MultiLearn` class is the heart of this project.  This class uses multiple l
 
 ### <a name="Examples">`morl.examples`</a> | Examples
 
+#### <a name="ExamplesDDPGMujoco">`morl.examples.ddpg_mujoco`</a> | DDPG Mujoco
+This example shows how to use our DDPG version of Multilearn in a sample environment, and also showcases the ability of our system to work in more complex environments, such as the OpenAI Mujoco Humanoid environment.
+
+#### <a name="ExamplesDDPGPendulum">`morl.examples.ddpg_pendulum`</a> | DDPG Pendulum
+This example shows how to use a single-learner version of a DDPG (i.e. a normal DDPG) in a sample environment OpenAI Pendulum environment.
+
+#### <a name="ExamplesDQNMountaincar">`morl.examples.dqn_mountaincar`</a> | DQN Mountaincar
+This example shows how to use a Deep Q-Network in the OpenAI Mountaincar sample environment.
+
+#### <a name="ExamplesFrozenLakeConfig">`morl.examples.frozenlake_config`</a> | FrozenLake Config
+This example shows how to create your own configuration by wrapping the OpenAI Environment within. Configs help to abstract away the training and iteration code for reinforcement learning, letting you focus on the model and the environment.
+
+#### <a name="ExamplesFrozenLake">`morl.examples.frozenlake`</a> | FrozenLake
+This example shows how to our use default tabular Q-Learning with a basic environment from OpenAI, the FrozenLake environment. This was used to generate reward-over-time graphs to compare Multilearning with Q-Learning.
+
+#### <a name="ExamplesMountaincar">`morl.examples.mountaincar`</a> | Mountaincar
+This example shows how to our use default tabular Q-Learning with an environment with a continuous state-space from OpenAI, the Mountaincar environment. For tabular Q-Learning, this involves discretizing the state-space, but for larger spaces this becomes inpractical, which is why DQN's and DDPG Networks are used instead.
+
 ## Index
  - [morl.examples](#Examples)
    - [morl.examples.ddpg_mujoco](#ExamplesDDPGMujoco)
