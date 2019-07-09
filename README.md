@@ -1,4 +1,7 @@
 # MORL: Multi-Objective Reinforcement Learning
+
+[![DOI](https://zenodo.org/badge/103183396.svg)](https://zenodo.org/badge/latestdoi/103183396)
+
 ## Team Members
  - Frazier Baker - bakerfn@mail.uc.edu
  - Jeremiah Greer - greerji@mail.uc.edu
